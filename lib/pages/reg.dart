@@ -1,17 +1,22 @@
+import 'package:active_log/services/firebase_services.dart';
+import 'package:active_log/services/user_model.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class RegPage extends StatefulWidget {
+  const RegPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<RegPage> createState() => _RegPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  bool isObscure = true;
+FirebaseService firebaseService = FirebaseService();
+TextEditingController name = TextEditingController();
+TextEditingController email = TextEditingController();
+TextEditingController password = TextEditingController();
+TextEditingController confirmPassword = TextEditingController();
+bool isObscure = true;
 
+class _RegPageState extends State<RegPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,16 +28,37 @@ class _AuthPageState extends State<AuthPage> {
             Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.01)),
-            Image.asset('images/logo.png', width: 150, height: 150,),
+            Image.asset(
+              'images/logo.png',
+              width: 150,
+              height: 150,
+            ),
             Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               child: const Text(
-                'Авторизация',
+                'Регистрация',
                 style: TextStyle(color: Colors.black, fontSize: 18),
                 textAlign: TextAlign.center,
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: TextField(
+                controller: name,
+                decoration: const InputDecoration(
+                    hintText: 'Введите имя',
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 2, color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(20)))),
               ),
             ),
             Padding(
@@ -60,8 +86,27 @@ class _AuthPageState extends State<AuthPage> {
               child: TextField(
                 obscureText: isObscure,
                 controller: password,
+                decoration: const InputDecoration(
+                  hintText: 'Введите пароль',
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 2, color: Colors.grey),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                ),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: TextField(
+                obscureText: isObscure,
+                controller: confirmPassword,
                 decoration: InputDecoration(
-                    hintText: 'Введите пароль',
+                    hintText: 'Подтвердите пароль',
                     enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(width: 2, color: Colors.grey),
                         borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -86,26 +131,34 @@ class _AuthPageState extends State<AuthPage> {
             ),
             Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.005)),
-            Container(
-                alignment: const Alignment(0.85, 0),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: const Text('Забыли пароль?'),
-                )),
-            Padding(
-                padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.01)),
             Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: const BoxDecoration(
                   color: Colors.black,
+                  gradient: LinearGradient(colors: [
+                    Color.fromARGB(255, 138, 57, 225),
+                    Color.fromARGB(255, 111, 58, 121),
+                  ], stops: [
+                    0.2,
+                    1.0
+                  ]),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (password.text == confirmPassword.text) {
+                      UserModel? user = await firebaseService.signUp(
+                          name.text, email.text, password.text);
+                      if (user != null) {
+                        Navigator.pushNamed(context, '/home');
+                      } else {
+                        return;
+                      }
+                    }
+                  },
                   child: const Text(
-                    'Войти',
+                    'Зарегистрироваться',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   )),
             ),
@@ -152,7 +205,7 @@ class _AuthPageState extends State<AuthPage> {
               child: TextButton(
                   onPressed: () {},
                   child: const Text(
-                    'Войти',
+                    'Войти с помощью Google',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   )),
             ),
@@ -168,7 +221,7 @@ class _AuthPageState extends State<AuthPage> {
               child: TextButton(
                   onPressed: () {},
                   child: const Text(
-                    'Войти',
+                    'Войти c помощью Apple',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   )),
             ),
@@ -179,15 +232,15 @@ class _AuthPageState extends State<AuthPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Нет аккаунта? ',
+                  'Есть аккаунта? ',
                   style: TextStyle(color: Colors.grey),
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/reg');
+                    Navigator.pushNamed(context, '/');
                   },
                   child: const Text(
-                    'Зарегистрироваться сейчас?',
+                    'Войти сейчас?',
                     style: TextStyle(color: Colors.blue),
                   ),
                 )

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:active_log/auth.dart';
-import 'package:active_log/reg.dart';
-import 'package:active_log/home.dart';
+import 'package:active_log/pages/auth.dart';
+import 'package:active_log/pages/reg.dart';
+import 'package:active_log/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
