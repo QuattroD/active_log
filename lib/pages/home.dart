@@ -1,9 +1,9 @@
-import 'package:active_log/components/navigation_bar.dart';
 import 'package:active_log/pages/diet.dart';
 import 'package:active_log/pages/profile.dart';
 import 'package:active_log/pages/report.dart';
 import 'package:active_log/pages/start.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,11 +12,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+int selectedtab = 0;
 final tabList = <Widget>[
-  StartPage(),
-  DietPage(),
-  ReportPage(),
-  ProfilePage()
+  const StartPage(),
+  const DietPage(),
+  const ReportPage(),
+  const ProfilePage()
 ];
 
 class _HomePageState extends State<HomePage> {
@@ -25,15 +26,36 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Активность'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
-        ],
-      ),
-      body: tabList.elementAt(0),
-      bottomNavigationBar: NavigationBarPage(),
+      body: tabList.elementAt(selectedtab),
+      bottomNavigationBar: GNav(
+          gap: 8,
+          backgroundColor: Colors.white,
+          color: Colors.grey[600],
+          activeColor: Colors.deepPurple,
+          selectedIndex: selectedtab,
+          onTabChange: (index) {
+            setState(() {
+              selectedtab = index;
+            });
+          },
+          tabs: const [
+            GButton(
+              icon: Icons.home,
+              text: 'Главная',
+            ),
+            GButton(
+              icon: Icons.restaurant_menu,
+              text: 'Рацион',
+            ),
+            GButton(
+              icon: Icons.donut_large,
+              text: 'Статистика',
+            ),
+            GButton(
+              icon: Icons.account_box,
+              text: 'Профиль',
+            ),
+          ]),
     ));
   }
 }
