@@ -19,9 +19,34 @@ class _StartPageState extends State<StartPage> {
           IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
         ],
       ),
-      body: Wrap(
+      body: const Wrap(
         children: [
-          InfoCard()
+          InfoCard(
+            background: Color.fromARGB(255, 114, 101, 227),
+            icon: Icons.directions_run,
+            widget: Center(
+                child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Color.fromARGB(255, 136, 104, 190),
+                    color: Colors.white,
+                    value: 0.56,
+                    strokeCap: StrokeCap.round,
+                    strokeWidth: 7,
+                  ),
+                ),
+                Text(
+                  '7,333',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                )
+              ],
+            )),
+            title: 'Шаги',
+          )
         ],
       ),
     );
