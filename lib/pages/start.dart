@@ -10,14 +10,13 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-
   List<double> weeklySummary = [
-    4.40,
-    2.50,
-    42.42,
-    10.50,
-    100.20,
-    88.99,
+    34.40,
+    15.50,
+    45.42,
+    35.50,
+    60.20,
+    50.99,
     90.10
   ];
   @override
@@ -32,17 +31,16 @@ class _StartPageState extends State<StartPage> {
           ],
         ),
         body: SafeArea(
-            child: Column(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Добрый день, Эльмир'),
-            const Text(
-                'Следите за своей ежедневной активностью и оставайтесь здоровыми'),
-            Wrap(
+            Column(
               children: [
-                const InfoCard(
-                  background: Color.fromARGB(255, 114, 101, 227),
-                  iconColor: Colors.white,
-                  textColor: Colors.white,
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                InfoCard(
+                  background: Colors.white,
+                  iconColor: const Color.fromARGB(255, 114, 101, 227),
+                  textColor: Colors.black,
                   height: 0.22,
                   icon: Icons.directions_run,
                   widget: Center(
@@ -53,41 +51,128 @@ class _StartPageState extends State<StartPage> {
                         width: 100,
                         height: 100,
                         child: CircularProgressIndicator(
-                          backgroundColor: Color.fromARGB(255, 136, 104, 190),
-                          color: Colors.white,
+                          backgroundColor: Colors.grey[300],
+                          color: const Color.fromARGB(255, 136, 104, 190),
                           value: 0.56,
                           strokeCap: StrokeCap.round,
-                          strokeWidth: 7,
+                          strokeWidth: 9,
                         ),
                       ),
-                      Text(
+                      const Text(
                         '7,333\nшаги',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(color: Colors.black, fontSize: 18),
                       ),
                     ],
                   )),
                   title: 'Ходьба',
                 ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                InfoCard(
+                    background: Colors.white,
+                    iconColor: Colors.cyan,
+                    textColor: Colors.black,
+                    title: 'Упражнения',
+                    height: 0.22,
+                    icon: Icons.accessibility_new,
+                    widget: Column(
+                      children: [
+                        Center(
+                          child: SizedBox(
+                            height: 80,
+                            child: MyChartGraph(
+                              weeklySumamry: weeklySummary,
+                            ),
+                          ),
+                        ),
+                        const Text('3 часа')
+                      ],
+                    )),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                 const InfoCard(
                   background: Colors.white,
                   textColor: Colors.black,
-                  height: 0.15,
-                  icon: Icons.brightness_2,
+                  height: 0.12,
+                  icon: Icons.pedal_bike,
+                  widget: Text('35 минут'),
+                  title: 'Велоспорт',
+                  iconColor: Colors.orange,
+                ),
+              ],
+            ),
+            const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+            Column(
+              children: [
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                const InfoCard(
+                  background: Colors.white,
+                  textColor: Colors.black,
+                  height: 0.12,
+                  icon: Icons.brightness_3,
                   widget: Text('7.40 часов'),
                   title: 'Сон',
-                  iconColor: Colors.yellow,
+                  iconColor: Colors.orange,
                 ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                 InfoCard(
                   background: Colors.white,
-                  iconColor: Colors.cyan,
+                  iconColor: Colors.blue,
                   textColor: Colors.black,
                   height: 0.22,
-                  icon: Icons.accessibility_new,
-                  widget: Center(child: SizedBox(
-                    height: 70,
-                    child: MyChartGraph(weeklySumamry: weeklySummary,),
-                  ),),
-                  title: 'Упражнения',
+                  icon: Icons.water_drop,
+                  widget: Center(
+                      child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.grey[300],
+                          color: Colors.blue,
+                          value: 0.56,
+                          strokeCap: StrokeCap.round,
+                          strokeWidth: 9,
+                        ),
+                      ),
+                      const Text(
+                        textAlign: TextAlign.center,
+                        '100\nмл',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ],
+                  )),
+                  title: 'Вода',
+                ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                InfoCard(
+                  background: Colors.white,
+                  iconColor: Colors.green,
+                  textColor: Colors.black,
+                  height: 0.22,
+                  icon: Icons.emoji_food_beverage,
+                  widget: Center(
+                      child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.grey[300],
+                          color: Colors.green,
+                          value: 0.56,
+                          strokeCap: StrokeCap.round,
+                          strokeWidth: 9,
+                        ),
+                      ),
+                      const Text(
+                        '245\nкалорий',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ],
+                  )),
+                  title: 'Калории',
                 ),
               ],
             ),

@@ -8,8 +8,18 @@ class ReportPage extends StatefulWidget {
 }
 
 class _ReportPageState extends State<ReportPage> {
+
+  List<double> weeklySummary = [
+    34.40,
+    15.50,
+    45.42,
+    35.50,
+    60.20,
+    50.99,
+    90.10
+  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('report'),);
+    return Scaffold(body: SizedBox());
   }
 }
