@@ -1,3 +1,4 @@
+import 'package:active_log/components/horizontal_calendar.dart';
 import 'package:flutter/material.dart';
 
 class DietPage extends StatefulWidget {
@@ -10,6 +11,13 @@ class DietPage extends StatefulWidget {
 class _DietPageState extends State<DietPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('diet'),);
+    return SafeArea(child: Scaffold(
+      appBar: AppBar(centerTitle: true, title: Text('Рацион'),),
+      body: Column(
+        children: [
+          HorizontalCalendar()
+        ],
+      ),
+    ));
   }
 }

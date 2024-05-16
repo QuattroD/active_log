@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:active_log/pages/daily_activity.dart';
+import 'package:active_log/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:active_log/pages/auth.dart';
 import 'package:active_log/pages/reg.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const AuthPage(),
         '/reg': (context) => const RegPage(),
         '/home': (context) => const HomePage(),
+        '/activity': (context) => const DailyActivityPage(),
+        '/workout': (context) => const WorkoutPage(),
         //'/settings': (context) => const SettingsPage(),
       },
     );

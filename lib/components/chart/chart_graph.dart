@@ -1,4 +1,4 @@
-import 'package:active_log/components/chart_data.dart';
+import 'package:active_log/components/chart/chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

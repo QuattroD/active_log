@@ -1,5 +1,5 @@
 import 'package:active_log/components/card.dart';
-import 'package:active_log/components/chart_graph.dart';
+import 'package:active_log/components/exercise_card.dart';
 import 'package:flutter/material.dart';
 
 class StartPage extends StatefulWidget {
@@ -10,173 +10,171 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  List<double> weeklySummary = [
-    34.40,
-    15.50,
-    45.42,
-    35.50,
-    60.20,
-    50.99,
-    90.10
-  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(244, 244, 246, 250),
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Активность'),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.calendar_month))
-          ],
-        ),
-        body: SafeArea(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                InfoCard(
-                  background: Colors.white,
-                  iconColor: const Color.fromARGB(255, 114, 101, 227),
-                  textColor: Colors.black,
-                  height: 0.22,
-                  icon: Icons.directions_run,
-                  widget: Center(
-                      child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.grey[300],
-                          color: const Color.fromARGB(255, 136, 104, 190),
-                          value: 0.56,
-                          strokeCap: StrokeCap.round,
-                          strokeWidth: 9,
-                        ),
-                      ),
-                      const Text(
-                        '7,333\nшаги',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                    ],
-                  )),
-                  title: 'Ходьба',
-                ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                InfoCard(
-                    background: Colors.white,
-                    iconColor: Colors.cyan,
-                    textColor: Colors.black,
-                    title: 'Упражнения',
-                    height: 0.22,
-                    icon: Icons.accessibility_new,
-                    widget: Column(
+    return SafeArea(
+        child: Scaffold(
+      body: Column(
+        children: [
+          const Text(
+            'Добрый день, Эльмир',
+            style: TextStyle(fontSize: 20),
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.01)),
+          const Text(
+            'Недавняя активность',
+            style: TextStyle(fontSize: 20),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.popAndPushNamed(context, '/activity');
+                },
+                child: Container(
+                    width: 170,
+                    height: 170,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        border: Border.all(width: 1, color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Center(
-                          child: SizedBox(
-                            height: 80,
-                            child: MyChartGraph(
-                              weeklySumamry: weeklySummary,
+                        Stack(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 4, color: Colors.white),
+                                  borderRadius: BorderRadius.circular(100)),
+                              child: const Icon(
+                                Icons.directions_run,
+                                color: Colors.white,
+                                size: 35,
+                              ),
                             ),
+                          ],
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: MediaQuery.of(context).size.height *
+                                    0.005)),
+                        const Text(
+                          'Активность',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )
+                      ],
+                    ))),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.popAndPushNamed(context, '/workout');
+                },
+                child: Container(
+                width: 170,
+                height: 170,
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    border: Border.all(width: 1, color: Colors.deepPurple),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                    child: Center(
+                        child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 4, color: Colors.white),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: const Icon(
+                            Icons.directions_bike,
+                            color: Colors.white,
+                            size: 35,
                           ),
                         ),
-                        const Text('3 часа')
                       ],
-                    )),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                const InfoCard(
-                  background: Colors.white,
-                  textColor: Colors.black,
-                  height: 0.12,
-                  icon: Icons.pedal_bike,
-                  widget: Text('35 минут'),
-                  title: 'Велоспорт',
-                  iconColor: Colors.orange,
-                ),
-              ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.005)),
+                    const Text(
+                      'Тренировки',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    )
+                  ],
+                ))),
+              ),
+              )
+            ],
+          ),
+          const Text(
+            'Популярные упражнения',
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.93,
+            child: const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ExerciseCard(background: Colors.lightBlue, title: 'title'),
+                  ExerciseCard(background: Colors.green, title: 'title2')
+                ],
+              ),
             ),
-            const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-            Column(
-              children: [
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                const InfoCard(
-                  background: Colors.white,
-                  textColor: Colors.black,
-                  height: 0.12,
-                  icon: Icons.brightness_3,
-                  widget: Text('7.40 часов'),
-                  title: 'Сон',
-                  iconColor: Colors.orange,
-                ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                InfoCard(
-                  background: Colors.white,
-                  iconColor: Colors.blue,
-                  textColor: Colors.black,
-                  height: 0.22,
-                  icon: Icons.water_drop,
-                  widget: Center(
-                      child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.grey[300],
-                          color: Colors.blue,
-                          value: 0.56,
-                          strokeCap: StrokeCap.round,
-                          strokeWidth: 9,
-                        ),
-                      ),
-                      const Text(
-                        textAlign: TextAlign.center,
-                        '100\nмл',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                    ],
-                  )),
-                  title: 'Вода',
-                ),
-                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                InfoCard(
-                  background: Colors.white,
-                  iconColor: Colors.green,
-                  textColor: Colors.black,
-                  height: 0.22,
-                  icon: Icons.emoji_food_beverage,
-                  widget: Center(
-                      child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        height: 100,
-                        child: CircularProgressIndicator(
-                          backgroundColor: Colors.grey[300],
-                          color: Colors.green,
-                          value: 0.56,
-                          strokeCap: StrokeCap.round,
-                          strokeWidth: 9,
-                        ),
-                      ),
-                      const Text(
-                        '245\nкалорий',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      ),
-                    ],
-                  )),
-                  title: 'Калории',
-                ),
-              ],
-            ),
-          ],
-        )));
+          ),
+          const Text(
+            'Процесс тренировки',
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.93,
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    InfoCard(
+                    background: Color.fromARGB(255, 231, 231, 231),
+                    icon: Icons.directions_run,
+                    widget: Text('2345 шагов'),
+                    title: 'Ходьба',
+                    iconColor: Colors.deepPurple,
+                    textColor: Colors.black,
+                    height: 50),
+                    InfoCard(
+                    background: Color.fromARGB(255, 231, 231, 231),
+                    icon: Icons.accessibility_new,
+                    widget: Text('3 часа'),
+                    title: 'Упражнения',
+                    iconColor: Colors.cyan,
+                    textColor: Colors.black,
+                    height: 50),
+                    InfoCard(
+                    background: Color.fromARGB(255, 231, 231, 231),
+                    icon: Icons.directions_bike,
+                    widget: Text('3 часа'),
+                    title: 'Велоспорт',
+                    iconColor: Colors.orange,
+                    textColor: Colors.black,
+                    height: 50)
+                  ],
+                )),
+          )
+        ],
+      ),
+    ));
   }
 }

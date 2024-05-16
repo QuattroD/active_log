@@ -1,4 +1,4 @@
-import 'package:active_log/components/chart.dart';
+import 'package:active_log/components/chart/chart.dart';
 
 class ChartData {
   final double sunAmount;
