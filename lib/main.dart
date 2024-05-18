@@ -7,6 +7,7 @@ import 'package:active_log/pages/auth.dart';
 import 'package:active_log/pages/reg.dart';
 import 'package:active_log/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('ru', ''),
+      ],
+      locale: const Locale('ru', ''),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {

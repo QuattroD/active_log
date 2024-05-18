@@ -40,7 +40,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        DateFormat('EEE').format(currentDate),
+                        DateFormat.E('ru').format(currentDate),
                         style: TextStyle(
                           color: isSelected ? Colors.white : Colors.black,
                           fontWeight:
@@ -48,7 +48,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                         ),
                       ),
                     ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                     Container(
                       width: 30,
                       height: 30,
@@ -58,7 +58,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
                           border: Border.all(width: 1, color: Colors.white)),
                       child: Center(
                         child: Text(
-                          DateFormat('d').format(currentDate),
+                          DateFormat.d('ru').format(currentDate),
                           style: TextStyle(
                             color:
                                 isSelected ? Colors.deepPurple : Colors.black,
