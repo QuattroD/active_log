@@ -11,6 +11,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool darkTheme = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -19,19 +20,16 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Профиль'),
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.edit_outlined, color: Colors.black, size: 28,)),
+        leading: SizedBox(),
         toolbarHeight: 70,
         actions: [
           IconButton(
-              onPressed: () async {
-                await UserPreferences.removeUID();
-                Navigator.popAndPushNamed(context, '/');
-              },
-              icon: const Icon(
-                Icons.exit_to_app,
-                color: Colors.black,
-                size: 28,
-              ))
+            onPressed: () {},
+            icon: const Icon(
+              Icons.edit_outlined,
+              color: Colors.black,
+              size: 28,
+            )),
         ],
       ),
       body: Center(
@@ -39,17 +37,16 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Row(
               children: [
-                  Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 10),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: const CircleAvatar(
-                    radius: 70,
-                    backgroundColor: Colors.grey,
-                    backgroundImage: AssetImage('images/niyaz.jpg'),
-                  ),
-                  )
-                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 10),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const CircleAvatar(
+                        radius: 70,
+                        backgroundColor: Colors.grey,
+                        backgroundImage: AssetImage('images/niyaz.jpg'),
+                      ),
+                    )),
                 Padding(
                     padding: const EdgeInsets.only(top: 70, left: 10),
                     child: Column(
@@ -161,9 +158,138 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            const Row(children: [
-              Padding(padding: EdgeInsets.only(left: 20), child: Text('Настройки', style: TextStyle(fontSize: 20)))
-            ],)
+            const Row(
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text('Настройки', style: TextStyle(fontSize: 20)))
+              ],
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 228, 214, 255),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: const Icon(
+                    Icons.mode_night,
+                    size: 28,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                const Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child:
+                        Text('Темный режим', style: TextStyle(fontSize: 20))),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
+                Switch(
+                    value: darkTheme,
+                    onChanged: (bool value) {
+                      setState(() {
+                        darkTheme = value;
+                      });
+                    })
+              ],
+            ),
+            ),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+            GestureDetector(
+              onTap: () {},
+              child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 228, 214, 255),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: const Icon(
+                      Icons.language,
+                      size: 28,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+                  const Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text('Язык', style: TextStyle(fontSize: 20))),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 90)),
+                  const Text(
+                    'Русский',
+                    style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 85, 85, 85)),
+                  )
+                ],
+              ),
+            ),
+            ),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+            GestureDetector(
+              onTap: () {},
+              child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 228, 214, 255),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: const Icon(
+                    Icons.notifications_active_outlined,
+                    size: 28,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+                const Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child:
+                        Text('Уведомления', style: TextStyle(fontSize: 20))),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 88)),
+              ],
+            ),
+            ),
+            ),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+            GestureDetector(
+              onTap: () async {
+                await UserPreferences.removeUID();
+                Navigator.popAndPushNamed(context, '/');
+              },
+              child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 215, 215),
+                      borderRadius: BorderRadius.circular(12)),
+                  child:  const Icon(
+                    Icons.exit_to_app_outlined,
+                    size: 28,
+                    color: Colors.red,
+                  ),
+                ),
+                const Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child:
+                        Text('Выйти из аккаунта', style: TextStyle(fontSize: 20))),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 64)),
+              ],
+            ),
+            ),
+            )
           ],
         ),
       ),
