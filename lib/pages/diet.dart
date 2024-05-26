@@ -16,10 +16,11 @@ class _DietPageState extends State<DietPage> {
         child: Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 251),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text('Ежедневный рацион'),
         leading: const SizedBox(),
-        toolbarHeight: 80,
+        toolbarHeight: 70,
       ),
       body: Column(
         children: [
@@ -132,13 +133,13 @@ class _DietPageState extends State<DietPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20, top: 22),
                               child: SizedBox(
-                                child: Text('Калории'),
+                                child: Text('Белки'),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 20,),
                               child: SizedBox(
-                                child: Text('856 кКал'),
+                                child: Text('856г'),
                               ),
                             )
                           ],
@@ -175,13 +176,13 @@ class _DietPageState extends State<DietPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20, top: 22),
                               child: SizedBox(
-                                child: Text('Калории'),
+                                child: Text('Жиры'),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 20,),
                               child: SizedBox(
-                                child: Text('856 кКал'),
+                                child: Text('856г'),
                               ),
                             )
                           ],
@@ -227,13 +228,13 @@ class _DietPageState extends State<DietPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 22),
                               child: SizedBox(
-                                child: Text('Калории'),
+                                child: Text('Углеводы'),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 20,),
                               child: SizedBox(
-                                child: Text('856 кКал'),
+                                child: Text('856г'),
                               ),
                             )
                           ],
@@ -270,13 +271,13 @@ class _DietPageState extends State<DietPage> {
                             Padding(
                               padding: EdgeInsets.only(left: 20,top: 22),
                               child: SizedBox(
-                                child: Text('Калории'),
+                                child: Text('Клетчатка'),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 20,),
                               child: SizedBox(
-                                child: Text('856 кКал'),
+                                child: Text('856г'),
                               ),
                             )
                           ],

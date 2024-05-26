@@ -1,6 +1,11 @@
 import 'dart:io';
-
 import 'package:active_log/pages/daily_activity.dart';
+import 'package:active_log/pages/welcome_pages/age.dart';
+import 'package:active_log/pages/welcome_pages/gender.dart';
+import 'package:active_log/pages/welcome_pages/goal.dart';
+import 'package:active_log/pages/welcome_pages/tall.dart';
+import 'package:active_log/pages/welcome_pages/weight.dart';
+import 'package:active_log/pages/welcome_pages/welcome.dart';
 import 'package:active_log/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:active_log/pages/auth.dart';
@@ -24,7 +29,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,13 +45,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
+        '/welcome': (context) => const WelcomePage(),
         '/': (context) => const AuthPage(),
         '/reg': (context) => const RegPage(),
         '/home': (context) => const HomePage(),
         '/activity': (context) => const DailyActivityPage(),
         '/workout': (context) => const WorkoutPage(),
-        //'/settings': (context) => const SettingsPage(),
+        '/gender': (context) => const GenderPage(),
+        '/age': (context) => const AgePage(),
+        '/weight': (context) => const WeightPage(),
+        '/tall': (context) => const TallPage(),
+        '/goal': (context) => const GoalPage(),
       },
+      
     );
   }
 }

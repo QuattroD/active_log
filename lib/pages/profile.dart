@@ -1,3 +1,4 @@
+import 'package:active_log/services/user_data.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -22,12 +23,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Container(
               width: 150,
               height: 150,
-              decoration: BoxDecoration(border: Border.all(width: 1, color: Colors.black), borderRadius: BorderRadius.circular(100)),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.black),
+                  borderRadius: BorderRadius.circular(100)),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: const TextField(
@@ -43,9 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: const TextField(
@@ -61,9 +62,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: const TextField(
@@ -79,9 +79,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: const TextField(
@@ -97,9 +96,8 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: const TextField(
@@ -115,30 +113,24 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.01)),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.01)),
             Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 138, 57, 225),
-                            Color.fromARGB(255, 111, 58, 121),
-                          ], stops: [
-                            0.2,
-                            1.0
-                          ]),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                      child: TextButton(
-                          onPressed: () {
-                          },
-                          child: const Text(
-                            'Войти',
-                            style: TextStyle(color: Colors.white, fontSize: 25),
-                          )),
-                    ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.08,
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.red),
+                  borderRadius: const BorderRadius.all(Radius.circular(20))),
+              child: TextButton(
+                  onPressed: () async {
+                    await UserPreferences.removeUID();
+                    Navigator.popAndPushNamed(context, '/');
+                  },
+                  child: const Text(
+                    'Выйти',
+                    style: TextStyle(color: Colors.black, fontSize: 25),
+                  )),
+            ),
           ],
         ),
       ),

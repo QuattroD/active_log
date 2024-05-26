@@ -28,10 +28,21 @@ class _RegPageState extends State<RegPage> {
             Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.01)),
-            Image.asset(
-              'images/logo.png',
-              width: 150,
-              height: 150,
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(
+                  image: AssetImage('images/activelog.png'),
+                  width: 70,
+                ),
+                Text(
+                  'ActiveLog',
+                  style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
             Padding(
                 padding: EdgeInsets.symmetric(
@@ -151,7 +162,8 @@ class _RegPageState extends State<RegPage> {
                       UserModel? user = await firebaseService.signUp(
                           name.text, email.text, password.text);
                       if (user != null) {
-                        Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/welcome');
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Письмо с подтверждением отправлено. Проверьте вашу почту.')));
                       } else {
                         return;
                       }
@@ -196,38 +208,48 @@ class _RegPageState extends State<RegPage> {
             Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.02)),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.08,
-              decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Войти с помощью Google',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  )),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02)),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.08,
-              decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Войти c помощью Apple',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  )),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02)),
+            Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 1),
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.grey[200],
+                            ),
+                            child: Image.asset(
+                              'images/google-logo.png',
+                              height: 40,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 25),
+                        GestureDetector(
+                          onTap: () {
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white),
+                              borderRadius: BorderRadius.circular(16),
+                              color: Colors.grey[200],
+                            ),
+                            child: Image.asset(
+                              'images/apple-logo.png',
+                              height: 40,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.02)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

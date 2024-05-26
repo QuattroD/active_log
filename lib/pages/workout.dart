@@ -36,7 +36,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
@@ -54,7 +54,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     )),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
@@ -72,7 +72,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     )),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
@@ -90,7 +90,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
                     )),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    height: MediaQuery.of(context).size.height * 0.09,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
@@ -113,9 +113,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
             'Популярные тренировки',
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
-          ExerciseCard(background: Colors.lightBlue, title: 'title'),
-          ExerciseCard(background: Colors.green, title: 'title2'),
-          ExerciseCard(background: Colors.orange, title: 'title3')
+          const ExerciseCard(background: Colors.lightBlue, title: 'title'),
+          const ExerciseCard(background: Colors.green, title: 'title2'),
+          const ExerciseCard(background: Colors.orange, title: 'title3')
         ],
       ),
     ));

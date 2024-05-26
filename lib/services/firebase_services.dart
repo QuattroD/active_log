@@ -4,8 +4,12 @@ import 'user_model.dart';
 
 class FirebaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-// Регистрация
-  Future<UserModel?> signUp(String name, String email, String password) async {
+
+  Future<UserModel?> signUp(
+    String name,
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential result =
           await _firebaseAuth.createUserWithEmailAndPassword(
@@ -13,18 +17,17 @@ class FirebaseService {
         password: password,
       );
       FirebaseFirestore.instance
-          .collection(
-              'User${FirebaseAuth.instance.currentUser!.email.toString()}')
-          .doc('UserInfo')
+          .collection(FirebaseAuth.instance.currentUser!.email.toString())
+          .doc(FirebaseAuth.instance.currentUser!.uid.toString())
           .set({'name': name, 'email': email, 'password': password});
       User user = result.user as User;
+      await user.sendEmailVerification();
       return UserModel.fromFirebase(user);
     } catch (e) {
       return null;
     }
   }
 
-  // авторизация
   Future<UserModel?> signIn(String email, String password) async {
     try {
       UserCredential result = await _firebaseAuth.signInWithEmailAndPassword(

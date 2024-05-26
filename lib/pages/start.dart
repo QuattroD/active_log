@@ -1,5 +1,7 @@
 import 'package:active_log/components/card.dart';
 import 'package:active_log/components/exercise_card.dart';
+import 'package:active_log/services/user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class StartPage extends StatefulWidget {
@@ -10,22 +12,51 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  late String _greetingMessage;
+  @override
+  void initState() {
+    super.initState();
+    UserPreferences.saveUID(FirebaseAuth.instance.currentUser!.uid.toString());
+    _greetingMessage = _getGreetingMessage();
+  }
+  
+  String _getGreetingMessage() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Доброе утро';
+    } else if (hour < 18) {
+      return 'Добрый день';
+    } else {
+      return 'Добрый вечер';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       body: Column(
         children: [
-          const Text(
-            'Добрый день, Эльмир',
-            style: TextStyle(fontSize: 20),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Row(children: [
+            Text(
+            _greetingMessage,
+            style: const TextStyle(fontSize: 20),
+          )
+          ])
           ),
           Padding(
               padding: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.01)),
-          const Text(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: const Row(children: [
+            Text(
             'Недавняя активность',
             style: TextStyle(fontSize: 20),
+          )
+          ])
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -119,9 +150,14 @@ class _StartPageState extends State<StartPage> {
               )
             ],
           ),
-          const Text(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: const Row(children: [
+            Text(
             'Популярные упражнения',
             style: TextStyle(fontSize: 20),
+          )
+          ])
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,
@@ -135,9 +171,14 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
           ),
-          const Text(
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: const Row(children: [
+            Text(
             'Процесс тренировки',
             style: TextStyle(fontSize: 20),
+          )
+          ])
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,

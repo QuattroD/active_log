@@ -19,7 +19,6 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.grey[300],
             body: SingleChildScrollView(
               child: Center(
                 child: Column(
@@ -28,11 +27,22 @@ class _AuthPageState extends State<AuthPage> {
                         padding: EdgeInsets.symmetric(
                             vertical:
                                 MediaQuery.of(context).size.height * 0.01)),
-                    Image.asset(
-                      'images/logo.png',
-                      width: 150,
-                      height: 150,
-                    ),
+                    const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(
+                  image: AssetImage('images/activelog.png'),
+                  width: 70,
+                ),
+                Text(
+                  'ActiveLog',
+                  style: TextStyle(
+                      color: Colors.deepPurple,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
                     Padding(
                         padding: EdgeInsets.symmetric(
                             vertical:
@@ -191,7 +201,6 @@ class _AuthPageState extends State<AuthPage> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            print('google');
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20),
@@ -209,7 +218,6 @@ class _AuthPageState extends State<AuthPage> {
                         const SizedBox(width: 25),
                         GestureDetector(
                           onTap: () {
-                            print('apple');
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20),
