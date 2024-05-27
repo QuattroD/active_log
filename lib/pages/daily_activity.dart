@@ -1,5 +1,6 @@
 import 'package:active_log/components/card.dart';
 import 'package:active_log/components/chart/chart_graph.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DailyActivityPage extends StatefulWidget {
@@ -36,8 +37,8 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.85,
-              child: const Text(
-                  'Добрый день, Эльмир\nСледите за своей ежедневной активностью и оставайтесь здоровым'),
+              child: Text(
+                  'Добрый день, ${FirebaseAuth.instance.currentUser!.displayName.toString()}\nСледите за своей ежедневной активностью и оставайтесь здоровым'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Профиль'),
-        leading: SizedBox(),
+        leading: const SizedBox(),
         toolbarHeight: 70,
         actions: [
           IconButton(
