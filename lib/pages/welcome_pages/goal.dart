@@ -225,7 +225,7 @@ class _GoalPageState extends State<GoalPage> {
                         'tall': await UserPreferences.getUserTall(),
                         'goal': await UserPreferences.getUserGoal()
                       });
-                      // Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, '/home');
                     }
                   },
                   child: const Text(
