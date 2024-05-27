@@ -41,9 +41,9 @@ class _StartPageState extends State<StartPage> {
             width: MediaQuery.of(context).size.width * 0.9,
             child: Row(children: [
             Text(
-            _greetingMessage,
-            style: const TextStyle(fontSize: 20),
-          )
+            '$_greetingMessage, ${FirebaseAuth.instance.currentUser!.displayName.toString()}',
+            style: const TextStyle(fontSize: 24),
+          ),
           ])
           ),
           Padding(

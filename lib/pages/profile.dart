@@ -44,16 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: const CircleAvatar(
                         radius: 70,
                         backgroundColor: Colors.grey,
-                        backgroundImage: AssetImage('images/niyaz.jpg'),
+                        backgroundImage: AssetImage('images/yoga.png'),
                       ),
                     )),
                 Padding(
                     padding: const EdgeInsets.only(top: 70, left: 10),
                     child: Column(
                       children: [
-                        const Text(
-                          'Нияз Мингазов',
-                          style: TextStyle(fontSize: 25),
+                         Text(
+                          FirebaseAuth.instance.currentUser!.displayName.toString(),
+                          style: const TextStyle(fontSize: 25),
                         ),
                         Text(
                             FirebaseAuth.instance.currentUser!.email.toString())

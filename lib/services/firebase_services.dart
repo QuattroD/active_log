@@ -22,6 +22,7 @@ class FirebaseService {
           .set({'name': name, 'email': email, 'password': password});
       User user = result.user as User;
       await user.sendEmailVerification();
+      await user.updateDisplayName(name);
       return UserModel.fromFirebase(user);
     } catch (e) {
       return null;
