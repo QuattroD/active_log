@@ -19,7 +19,7 @@ class _StartPageState extends State<StartPage> {
     UserPreferences.saveUID(FirebaseAuth.instance.currentUser!.uid.toString());
     _greetingMessage = _getGreetingMessage();
   }
-  
+
   String _getGreetingMessage() {
     final hour = DateTime.now().hour;
     if (hour < 12) {
@@ -38,26 +38,24 @@ class _StartPageState extends State<StartPage> {
       body: Column(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Row(children: [
-            Text(
-            '$_greetingMessage, ${FirebaseAuth.instance.currentUser!.displayName.toString()}',
-            style: const TextStyle(fontSize: 24),
-          ),
-          ])
-          ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(children: [
+                Text(
+                  '$_greetingMessage, ${FirebaseAuth.instance.currentUser!.displayName.toString()}',
+                  style: const TextStyle(fontSize: 24),
+                ),
+              ])),
           Padding(
               padding: EdgeInsets.symmetric(
                   vertical: MediaQuery.of(context).size.height * 0.01)),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: const Row(children: [
-            Text(
-            'Недавняя активность',
-            style: TextStyle(fontSize: 20),
-          )
-          ])
-          ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Row(children: [
+                Text(
+                  'Недавняя активность',
+                  style: TextStyle(fontSize: 20),
+                )
+              ])),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -109,77 +107,76 @@ class _StartPageState extends State<StartPage> {
                   Navigator.popAndPushNamed(context, '/workout');
                 },
                 child: Container(
-                width: 170,
-                height: 170,
-                decoration: BoxDecoration(
-                    color: Colors.deepPurple,
-                    border: Border.all(width: 1, color: Colors.deepPurple),
-                    borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                    child: Center(
-                        child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 4, color: Colors.white),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: const Icon(
-                            Icons.directions_bike,
-                            color: Colors.white,
-                            size: 35,
+                  width: 170,
+                  height: 170,
+                  decoration: BoxDecoration(
+                      color: Colors.deepPurple,
+                      border: Border.all(width: 1, color: Colors.deepPurple),
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Center(
+                      child: Center(
+                          child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 4, color: Colors.white),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const Icon(
+                              Icons.directions_bike,
+                              color: Colors.white,
+                              size: 35,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.005)),
-                    const Text(
-                      'Тренировки',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    )
-                  ],
-                ))),
-              ),
+                        ],
+                      ),
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.005)),
+                      const Text(
+                        'Тренировки',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )
+                    ],
+                  ))),
+                ),
               )
             ],
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: const Row(children: [
-            Text(
-            'Популярные упражнения',
-            style: TextStyle(fontSize: 20),
-          )
-          ])
-          ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Row(children: [
+                Text(
+                  'Популярные упражнения',
+                  style: TextStyle(fontSize: 20),
+                )
+              ])),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,
             child: const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  ExerciseCard(background: Colors.lightBlue, title: 'title'),
-                  ExerciseCard(background: Colors.green, title: 'title2')
+                  //ExerciseCard(background: Colors.lightBlue, title: 'title'),
+                  //ExerciseCard(background: Colors.green, title: 'title2')
                 ],
               ),
             ),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: const Row(children: [
-            Text(
-            'Процесс тренировки',
-            style: TextStyle(fontSize: 20),
-          )
-          ])
-          ),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: const Row(children: [
+                Text(
+                  'Процесс тренировки',
+                  style: TextStyle(fontSize: 20),
+                )
+              ])),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,
             height: MediaQuery.of(context).size.height * 0.2,
@@ -188,29 +185,29 @@ class _StartPageState extends State<StartPage> {
                 child: Row(
                   children: [
                     InfoCard(
-                    background: Color.fromARGB(255, 231, 231, 231),
-                    icon: Icons.directions_run,
-                    widget: Text('2345 шагов'),
-                    title: 'Ходьба',
-                    iconColor: Colors.deepPurple,
-                    textColor: Colors.black,
-                    height: 50),
+                        background: Color.fromARGB(255, 231, 231, 231),
+                        icon: Icons.directions_run,
+                        widget: Text('2345 шагов'),
+                        title: 'Ходьба',
+                        iconColor: Colors.deepPurple,
+                        textColor: Colors.black,
+                        height: 50),
                     InfoCard(
-                    background: Color.fromARGB(255, 231, 231, 231),
-                    icon: Icons.accessibility_new,
-                    widget: Text('3 часа'),
-                    title: 'Упражнения',
-                    iconColor: Colors.cyan,
-                    textColor: Colors.black,
-                    height: 50),
+                        background: Color.fromARGB(255, 231, 231, 231),
+                        icon: Icons.accessibility_new,
+                        widget: Text('3 часа'),
+                        title: 'Упражнения',
+                        iconColor: Colors.cyan,
+                        textColor: Colors.black,
+                        height: 50),
                     InfoCard(
-                    background: Color.fromARGB(255, 231, 231, 231),
-                    icon: Icons.directions_bike,
-                    widget: Text('3 часа'),
-                    title: 'Велоспорт',
-                    iconColor: Colors.orange,
-                    textColor: Colors.black,
-                    height: 50)
+                        background: Color.fromARGB(255, 231, 231, 231),
+                        icon: Icons.directions_bike,
+                        widget: Text('3 часа'),
+                        title: 'Велоспорт',
+                        iconColor: Colors.orange,
+                        textColor: Colors.black,
+                        height: 50)
                   ],
                 )),
           )

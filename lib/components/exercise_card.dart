@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 
 class ExerciseCard extends StatefulWidget {
   const ExerciseCard(
-      {super.key, required this.background, required this.title});
+      {super.key,
+      required this.background,
+      required this.title,
+      required this.imageURL,
+      required this.kcal,
+      required this.time});
 
   final Color background;
   final String title;
-  //final Image image;
+  final String imageURL;
+  final String kcal;
+  final String time;
   @override
   State<ExerciseCard> createState() => _ExerciseCardState();
 }
@@ -14,7 +21,9 @@ class ExerciseCard extends StatefulWidget {
 class _ExerciseCardState extends State<ExerciseCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(
+      onTap: () {Navigator.pushNamed(context, '/training');},
+      child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 0.3,
         child: Container(
@@ -24,46 +33,56 @@ class _ExerciseCardState extends State<ExerciseCard> {
                 border: Border.all(width: 1, color: widget.background),
                 color: widget.background,
                 borderRadius: BorderRadius.circular(20)),
-            child:  Row(
+            child: Row(
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.only(left: 20, top: 20),
                         child: Text(
                           widget.title,
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 4.0),
-                      const Row(
+                      Row(
                         children: <Widget>[
                           Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Text(
-                              '15 мин',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
-                          ),
+                              padding: const EdgeInsets.only(left: 20, top: 20),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.timer_outlined, color: Color.fromARGB(255, 75, 75, 75),),
+                                  Text(
+                                    '${widget.time} мин',
+                                    style: const TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
+                                ],
+                              )),
                           Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text(
-                              '345 ккал',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
+                            padding: const EdgeInsets.only(left: 20, top: 20),
+                            child: Row(
+                                children: [
+                                  const Icon(Icons.local_fire_department_outlined, color: Color.fromARGB(255, 75, 75, 75),),
+                                  Text(
+                                    '${widget.kcal} ккал',
+                                    style: const TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 75, 75, 75)),
+                                  ),
+                                ],
+                              )
                           ),
                         ],
                       )
                     ],
                   ),
                 ),
-                const SizedBox(
+                Padding(padding: EdgeInsets.only(right: 10), child: SizedBox(
                   width: 150,
-                  child: Image(image: AssetImage('images/yoga.png')),
-                )
+                  child: Image(image: NetworkImage(widget.imageURL)),
+                ),)
               ],
-            )));
+            ))),
+    );
   }
 }

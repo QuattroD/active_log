@@ -9,14 +9,29 @@ class RegPage extends StatefulWidget {
   State<RegPage> createState() => _RegPageState();
 }
 
-FirebaseService firebaseService = FirebaseService();
-TextEditingController name = TextEditingController();
-TextEditingController email = TextEditingController();
-TextEditingController password = TextEditingController();
-TextEditingController confirmPassword = TextEditingController();
-bool isObscure = true;
-
 class _RegPageState extends State<RegPage> {
+  final RegExp _emailRegExp = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+  final RegExp _phoneRegExp = RegExp(r'^\+?[0-9]{7,15}$');
+  FirebaseService firebaseService = FirebaseService();
+  TextEditingController name = TextEditingController();
+  TextEditingController login = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+  bool isObscure = true;
+  String _inputType = '';
+
+  void _checkInput(String input) {
+    setState(() {
+      if (_emailRegExp.hasMatch(input)) {
+        _inputType = 'Email';
+      } else if (_phoneRegExp.hasMatch(input)) {
+        _inputType = 'Phone';
+      } else {
+        _inputType = 'Invalid';
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -78,15 +93,28 @@ class _RegPageState extends State<RegPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.90,
               child: TextField(
-                controller: email,
-                decoration: const InputDecoration(
-                    hintText: 'Введите email',
+                controller: login,
+                onChanged: _checkInput,
+                decoration: InputDecoration(
+                    hintText: 'Введите почту или номер телефона',
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: _inputType == 'Invalid'
+                              ? Colors.red
+                              : Colors.grey,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 2, color: Colors.grey),
-                        borderRadius: BorderRadius.all(Radius.circular(20)))),
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: _inputType == 'Invalid'
+                              ? Colors.red
+                              : Colors.grey,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)))),
               ),
             ),
             Padding(
@@ -147,26 +175,24 @@ class _RegPageState extends State<RegPage> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.08,
               decoration: const BoxDecoration(
-                  color: Colors.black,
-                  gradient: LinearGradient(colors: [
-                    Color.fromARGB(255, 138, 57, 225),
-                    Color.fromARGB(255, 111, 58, 121),
-                  ], stops: [
-                    0.2,
-                    1.0
-                  ]),
+                  color: Colors.deepPurple,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: TextButton(
                   onPressed: () async {
                     if (password.text == confirmPassword.text) {
-                      UserModel? user = await firebaseService.signUp(
-                          name.text, email.text, password.text);
-                      if (user != null) {
-                        Navigator.pushNamed(context, '/welcome');
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Письмо с подтверждением отправлено. Проверьте вашу почту.')));
-                      } else {
-                        return;
-                      }
+                      if (_inputType == 'Email') {
+                        UserModel? user = await firebaseService.signUpEmail(
+                            name.text, login.text, password.text);
+                        if (user != null) {
+                          Navigator.pushNamed(context, '/verification_email');
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text(
+                                  'Письмо с подтверждением отправлено. Проверьте вашу почту.')));
+                        } else {
+                          return;
+                        }
+                      } else if (_inputType == 'Phone') {                        
+                      } else {}
                     }
                   },
                   child: const Text(
@@ -209,47 +235,44 @@ class _RegPageState extends State<RegPage> {
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.02)),
             Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 1),
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.grey[200],
-                            ),
-                            child: Image.asset(
-                              'images/google-logo.png',
-                              height: 40,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 25),
-                        GestureDetector(
-                          onTap: () {
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white),
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.grey[200],
-                            ),
-                            child: Image.asset(
-                              'images/apple-logo.png',
-                              height: 40,
-                            ),
-                          ),
-                        )
-                      ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 1),
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.grey[200],
                     ),
-                    Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical:
-                                MediaQuery.of(context).size.height * 0.02)),
+                    child: Image.asset(
+                      'images/google-logo.png',
+                      height: 40,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 25),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.grey[200],
+                    ),
+                    child: Image.asset(
+                      'images/apple-logo.png',
+                      height: 40,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.02)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

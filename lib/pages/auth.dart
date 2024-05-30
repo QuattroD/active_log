@@ -121,7 +121,9 @@ class _AuthPageState extends State<AuthPage> {
                     Container(
                         alignment: const Alignment(0.85, 0),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/reset_password');
+                          },
                           child: const Text('Забыли пароль?'),
                         )),
                     Padding(

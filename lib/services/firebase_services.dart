@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'user_model.dart';
 
 class FirebaseService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<UserModel?> signUp(
+  Future<UserModel?> signUpEmail(
     String name,
     String email,
     String password,
@@ -16,10 +15,6 @@ class FirebaseService {
         email: email,
         password: password,
       );
-      FirebaseFirestore.instance
-          .collection(FirebaseAuth.instance.currentUser!.email.toString())
-          .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-          .set({'name': name, 'email': email, 'password': password});
       User user = result.user as User;
       await user.sendEmailVerification();
       await user.updateDisplayName(name);
@@ -27,6 +22,32 @@ class FirebaseService {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<void> verifyPhoneNumber(
+      {required String phoneNumber,
+      required Function(PhoneAuthCredential) verificationCompleted,
+      required Function(FirebaseAuthException) verificationFailed,
+      required Function(String, int?) codeSent,
+      required Function(String) codeAutoRetrievalTimeout}) async {
+    await _firebaseAuth.verifyPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    );
+  }
+
+  Future<void> signInWithPhoneNumber({
+    required String verificationId,
+    required String smsCode,
+  }) async {
+    final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: smsCode,
+    );
+    await _firebaseAuth.signInWithCredential(credential);
   }
 
   Future<UserModel?> signIn(String email, String password) async {

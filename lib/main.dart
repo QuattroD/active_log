@@ -1,5 +1,10 @@
 import 'dart:io';
 import 'package:active_log/pages/daily_activity.dart';
+import 'package:active_log/pages/reset_password.dart';
+import 'package:active_log/pages/training.dart';
+import 'package:active_log/pages/training_start.dart';
+import 'package:active_log/pages/verification_email.dart';
+import 'package:active_log/pages/verification_phone.dart';
 import 'package:active_log/pages/welcome_pages/age.dart';
 import 'package:active_log/pages/welcome_pages/gender.dart';
 import 'package:active_log/pages/welcome_pages/goal.dart';
@@ -56,6 +61,11 @@ class MyApp extends StatelessWidget {
         '/weight': (context) => const WeightPage(),
         '/tall': (context) => const TallPage(),
         '/goal': (context) => const GoalPage(),
+        '/verification_email': (context) => const EmailVerificationPage(),
+        '/verification_phone': (context) => const PhoneVerificationPage(),
+        '/reset_password': (context) => const ResetPasswordPage(),
+        '/training': (context) => const TrainingPage(),
+        '/training_start': (context) => const TrainingStartPage()
       },
       
     );

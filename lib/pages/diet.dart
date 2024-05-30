@@ -296,7 +296,25 @@ class _DietPageState extends State<DietPage> {
                 border: Border.all(width: 1, color: Colors.white),
                 borderRadius: BorderRadius.circular(15)),
             child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Scaffold.of(context).showBottomSheet(
+            (BuildContext context) {
+              return Container(
+                height: 200,
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+                },
                 child: const Text(
                   '+Добавить питание',
                   style: TextStyle(color: Colors.white, fontSize: 18),

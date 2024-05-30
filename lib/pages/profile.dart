@@ -24,12 +24,12 @@ class _ProfilePageState extends State<ProfilePage> {
         toolbarHeight: 70,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit_outlined,
-              color: Colors.black,
-              size: 28,
-            )),
+              onPressed: () {},
+              icon: const Icon(
+                Icons.edit_outlined,
+                color: Colors.black,
+                size: 28,
+              )),
         ],
       ),
       body: Center(
@@ -50,9 +50,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 Padding(
                     padding: const EdgeInsets.only(top: 70, left: 10),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Text(
-                          FirebaseAuth.instance.currentUser!.displayName.toString(),
+                        Text(
+                          FirebaseAuth.instance.currentUser!.displayName
+                              .toString(),
                           style: const TextStyle(fontSize: 25),
                         ),
                         Text(
@@ -168,41 +170,6 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 228, 214, 255),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: const Icon(
-                    Icons.mode_night,
-                    size: 28,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child:
-                        Text('Темный режим', style: TextStyle(fontSize: 20))),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
-                Switch(
-                    value: darkTheme,
-                    onChanged: (bool value) {
-                      setState(() {
-                        darkTheme = value;
-                      });
-                    })
-              ],
-            ),
-            ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            GestureDetector(
-              onTap: () {},
-              child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Container(
@@ -212,51 +179,89 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: const Color.fromARGB(255, 228, 214, 255),
                         borderRadius: BorderRadius.circular(12)),
                     child: const Icon(
-                      Icons.language,
+                      Icons.mode_night,
                       size: 28,
                       color: Colors.deepPurple,
                     ),
                   ),
                   const Padding(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text('Язык', style: TextStyle(fontSize: 20))),
-                  const Padding(padding: EdgeInsets.symmetric(horizontal: 90)),
-                  const Text(
-                    'Русский',
-                    style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 85, 85, 85)),
-                  )
+                      child:
+                          Text('Темный режим', style: TextStyle(fontSize: 20))),
+                  const Padding(padding: EdgeInsets.symmetric(horizontal: 50)),
+                  Switch(
+                      value: darkTheme,
+                      onChanged: (bool value) {
+                        setState(() {
+                          darkTheme = value;
+                        });
+                      })
                 ],
               ),
-            ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             GestureDetector(
               onTap: () {},
               child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 228, 214, 255),
-                      borderRadius: BorderRadius.circular(12)),
-                  child: const Icon(
-                    Icons.notifications_active_outlined,
-                    size: 28,
-                    color: Colors.deepPurple,
-                  ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 228, 214, 255),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: const Icon(
+                        Icons.language,
+                        size: 28,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Язык', style: TextStyle(fontSize: 20))),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 90)),
+                    const Text(
+                      'Русский',
+                      style: TextStyle(
+                          fontSize: 20, color: Color.fromARGB(255, 85, 85, 85)),
+                    )
+                  ],
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child:
-                        Text('Уведомления', style: TextStyle(fontSize: 20))),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 88)),
-              ],
+              ),
             ),
-            ),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+            GestureDetector(
+              onTap: () {},
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 228, 214, 255),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: const Icon(
+                        Icons.notifications_active_outlined,
+                        size: 28,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Уведомления',
+                            style: TextStyle(fontSize: 20))),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 88)),
+                  ],
+                ),
+              ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             GestureDetector(
@@ -265,30 +270,31 @@ class _ProfilePageState extends State<ProfilePage> {
                 Navigator.popAndPushNamed(context, '/');
               },
               child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 255, 215, 215),
-                      borderRadius: BorderRadius.circular(12)),
-                  child:  const Icon(
-                    Icons.exit_to_app_outlined,
-                    size: 28,
-                    color: Colors.red,
-                  ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 255, 215, 215),
+                          borderRadius: BorderRadius.circular(12)),
+                      child: const Icon(
+                        Icons.exit_to_app_outlined,
+                        size: 28,
+                        color: Colors.red,
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Выйти из аккаунта',
+                            style: TextStyle(fontSize: 20))),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 64)),
+                  ],
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child:
-                        Text('Выйти из аккаунта', style: TextStyle(fontSize: 20))),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 64)),
-              ],
-            ),
-            ),
+              ),
             )
           ],
         ),

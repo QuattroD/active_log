@@ -75,7 +75,7 @@ class _ReportPageState extends State<ReportPage> {
                                             color: const Color.fromARGB(
                                                 255, 255, 219, 215))),
                                     child: const Icon(
-                                      Icons.fire_extinguisher,
+                                      Icons.local_fire_department_outlined,
                                       color: Colors.red,
                                       size: 35,
                                     ),
