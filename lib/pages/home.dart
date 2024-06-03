@@ -2,6 +2,8 @@ import 'package:active_log/pages/diet.dart';
 import 'package:active_log/pages/profile.dart';
 import 'package:active_log/pages/report.dart';
 import 'package:active_log/pages/start.dart';
+import 'package:active_log/services/user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
@@ -21,8 +23,10 @@ final tabList = <Widget>[
 ];
 
 class _HomePageState extends State<HomePage> {
+  
   @override
   Widget build(BuildContext context) {
+    UserPreferences.saveUserUid(FirebaseAuth.instance.currentUser!.uid.toString());
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.grey[200],

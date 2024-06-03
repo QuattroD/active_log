@@ -1,6 +1,7 @@
 import 'package:active_log/components/exercise_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key});
@@ -31,12 +32,28 @@ class _WorkoutPageState extends State<WorkoutPage> {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,
-            child: const Row(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Категории',
-                  style: TextStyle(color: Colors.black, fontSize: 22,fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        workoutFilter = '';
+                      });
+                    },
+                    child: const Text(
+                      'Сбросить',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,),
+                    ))
               ],
             ),
           ),
@@ -216,7 +233,10 @@ class _WorkoutPageState extends State<WorkoutPage> {
               children: [
                 Text(
                   'Популярные тренировки',
-                  style: TextStyle(color: Colors.black, fontSize: 22,fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -240,7 +260,12 @@ class _WorkoutPageState extends State<WorkoutPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return const Center(child: Text('К сожалению по вашему запросу,\nничего не найдено :(', textAlign: TextAlign.center, style: TextStyle(fontSize: 20),));
+                  return const Center(
+                      child: Text(
+                    'К сожалению по вашему запросу,\nничего не найдено :(',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ));
                 }
 
                 final exercises = snapshot.data!.docs.map((doc) {

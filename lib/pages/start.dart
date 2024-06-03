@@ -1,6 +1,4 @@
 import 'package:active_log/components/card.dart';
-import 'package:active_log/components/exercise_card.dart';
-import 'package:active_log/services/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +14,6 @@ class _StartPageState extends State<StartPage> {
   @override
   void initState() {
     super.initState();
-    UserPreferences.saveUID(FirebaseAuth.instance.currentUser!.uid.toString());
     _greetingMessage = _getGreetingMessage();
   }
 

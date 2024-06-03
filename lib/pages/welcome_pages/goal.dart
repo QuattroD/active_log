@@ -218,7 +218,7 @@ class _GoalPageState extends State<GoalPage> {
                       } else if (isloseWeight == true) {
                         UserPreferences.saveUserGoal('Сбросить вес');
                       }
-                      FirebaseFirestore.instance.collection(FirebaseAuth.instance.currentUser!.email.toString()).doc(FirebaseAuth.instance.currentUser!.uid.toString()).update({
+                      FirebaseFirestore.instance.collection(FirebaseAuth.instance.currentUser!.email.toString()).doc(FirebaseAuth.instance.currentUser!.uid.toString()).set({
                         'age': await UserPreferences.getUserAge(),
                         'gender': await UserPreferences.getUserGender(),
                         'weight': await UserPreferences.getUserWeight(),

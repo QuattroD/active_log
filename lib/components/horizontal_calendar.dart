@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HorizontalCalendar extends StatefulWidget {
-  const HorizontalCalendar({super.key});
+  final ValueChanged<DateTime> onDateSelected;
+
+  const HorizontalCalendar({Key? key, required this.onDateSelected})
+      : super(key: key);
 
   @override
   State<HorizontalCalendar> createState() => _HorizontalCalendarState();
@@ -90,6 +93,7 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
               onTap: () {
                 setState(() {
                   _selectedDate = currentDate;
+                  widget.onDateSelected(_selectedDate);
                 });
               },
               child: Container(

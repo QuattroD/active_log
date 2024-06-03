@@ -6,11 +6,6 @@ class UserPreferences {
     prefs.setString('Gender', gender);
   }
 
-  static Future<void> saveUID(String uid) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('UID', uid);
-  }
-
   static Future<void> saveUserAge(int age) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('Age', age);
@@ -56,13 +51,18 @@ class UserPreferences {
     return prefs.getString('Goal');
   }
 
-  static Future<String?> getUID() async {
+  static Future<void> saveUserUid(String uid) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('UID', uid);
+  }
+
+  static Future<String?> getUserUid() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('UID');
   }
 
-  static Future<void> removeUID() async {
+  static Future<void> deleteUserUid() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('UID');
+    prefs.remove('UID');
   }
 }

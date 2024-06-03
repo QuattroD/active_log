@@ -12,6 +12,7 @@ import 'package:active_log/pages/welcome_pages/tall.dart';
 import 'package:active_log/pages/welcome_pages/weight.dart';
 import 'package:active_log/pages/welcome_pages/welcome.dart';
 import 'package:active_log/pages/workout.dart';
+import 'package:active_log/services/user_data.dart';
 import 'package:flutter/material.dart';
 import 'package:active_log/pages/auth.dart';
 import 'package:active_log/pages/reg.dart';
@@ -29,11 +30,13 @@ void main() async {
               messagingSenderId: '809706057161',
               projectId: 'active-log-9c62f'))
       : await Firebase.initializeApp();
-  runApp(const MyApp());
+      String? uid = await UserPreferences.getUserUid();
+  runApp(MyApp(initialRoute: uid != null ? '/home' : '/',));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String initialRoute;
+  const MyApp({super.key, required this.initialRoute});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('ru', ''),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: initialRoute,
       routes: {
         '/welcome': (context) => const WelcomePage(),
         '/': (context) => const AuthPage(),

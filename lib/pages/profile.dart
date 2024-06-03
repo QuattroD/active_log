@@ -1,4 +1,5 @@
 import 'package:active_log/services/user_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool darkTheme = false;
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 251),
@@ -266,7 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             GestureDetector(
               onTap: () async {
-                await UserPreferences.removeUID();
+                await UserPreferences.deleteUserUid();
                 Navigator.popAndPushNamed(context, '/');
               },
               child: SizedBox(
