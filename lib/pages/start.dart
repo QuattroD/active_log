@@ -1,6 +1,8 @@
 import 'package:active_log/components/card.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -15,6 +17,7 @@ class _StartPageState extends State<StartPage> {
   void initState() {
     super.initState();
     _greetingMessage = _getGreetingMessage();
+    createDocumentIfNotExists();
   }
 
   String _getGreetingMessage() {
@@ -25,6 +28,35 @@ class _StartPageState extends State<StartPage> {
       return 'Добрый день';
     } else {
       return 'Добрый вечер';
+    }
+  }
+
+  Future<void> createDocumentIfNotExists() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(FirebaseAuth.instance.currentUser!.email.toString())
+          .where('date', isEqualTo: '$todayDate 00:00:00.000')
+          .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        await FirebaseFirestore.instance.collection(FirebaseAuth.instance.currentUser!.email.toString()).add({
+          'calories': 0,
+          'carbs': 0,
+          'date': '$todayDate 00:00:00.000',
+          'fat': 0,
+          'fiber': 0,
+          'protein': 0,
+          'steps': 0,
+          'water': 0,
+          'workouts': 0,
+        });
+        print('New document created');
+      } else {
+        print('Document with today\'s date already exists');
+      }
     }
   }
 

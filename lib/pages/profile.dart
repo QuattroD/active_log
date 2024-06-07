@@ -15,7 +15,6 @@ class _ProfilePageState extends State<ProfilePage> {
   bool darkTheme = false;
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 251),
@@ -66,100 +65,128 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                Container(
-                  width: 80,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          right: BorderSide(width: 1, color: Colors.grey))),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('Вес',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100)))),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('52',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold))),
-                      Padding(
-                          padding: EdgeInsets.only(),
-                          child: Text('Кг',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100))))
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                Container(
-                  width: 80,
-                  height: 100,
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          right: BorderSide(width: 1, color: Colors.grey))),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('Возраст',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100)))),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('20',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold))),
-                      Padding(
-                          padding: EdgeInsets.only(),
-                          child: Text('Лет',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100))))
-                    ],
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.symmetric(horizontal: 20)),
-                const SizedBox(
-                  width: 80,
-                  height: 100,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('Рост',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100)))),
-                      Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: Text('172',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold))),
-                      Padding(
-                          padding: EdgeInsets.only(),
-                          child: Text('См',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color.fromARGB(255, 100, 100, 100))))
-                    ],
-                  ),
-                )
-              ],
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection(
+                      FirebaseAuth.instance.currentUser!.email.toString())
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(child: Text('Ошибка: ${snapshot.error}'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                var snap = snapshot.data!;
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20)),
+                    Container(
+                      width: 80,
+                      height: 100,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              right: BorderSide(width: 1, color: Colors.grey))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text('Вес',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100)))),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('${snap['weight']}',
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold))),
+                          const Padding(
+                              padding: EdgeInsets.only(),
+                              child: Text('Кг',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100))))
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20)),
+                    Container(
+                      width: 80,
+                      height: 100,
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              right: BorderSide(width: 1, color: Colors.grey))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text('Возраст',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100)))),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('${snap['age']}',
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold))),
+                          const Padding(
+                              padding: EdgeInsets.only(),
+                              child: Text('Лет',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100))))
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20)),
+                    SizedBox(
+                      width: 80,
+                      height: 100,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text('Рост',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100)))),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('${snap['tall']}',
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold))),
+                          const Padding(
+                              padding: EdgeInsets.only(),
+                              child: Text('См',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color:
+                                          Color.fromARGB(255, 100, 100, 100))))
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              },
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
             const Row(

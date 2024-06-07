@@ -21,9 +21,7 @@ class ExerciseCard extends StatefulWidget {
 class _ExerciseCardState extends State<ExerciseCard> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {Navigator.pushNamed(context, '/training');},
-      child: Card(
+    return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 0.3,
         child: Container(
@@ -82,7 +80,7 @@ class _ExerciseCardState extends State<ExerciseCard> {
                   child: Image(image: NetworkImage(widget.imageURL)),
                 ),)
               ],
-            ))),
-    );
+            )));
+
   }
 }

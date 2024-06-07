@@ -203,6 +203,7 @@ class _AuthPageState extends State<AuthPage> {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            firebaseService.signInWithGoogle();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20),

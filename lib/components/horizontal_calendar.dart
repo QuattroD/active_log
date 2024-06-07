@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 class HorizontalCalendar extends StatefulWidget {
   final ValueChanged<DateTime> onDateSelected;
 
-  const HorizontalCalendar({Key? key, required this.onDateSelected})
-      : super(key: key);
+  const HorizontalCalendar({super.key, required this.onDateSelected});
 
   @override
   State<HorizontalCalendar> createState() => _HorizontalCalendarState();
@@ -31,19 +30,11 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
 
   void _scrollToCurrentDate() {
     final DateTime today = DateTime.now();
-    final DateTime firstDayOfCurrentMonth =
-        DateTime(today.year, today.month, 1);
-    final DateTime firstDayOfPreviousMonth =
-        DateTime(today.year, today.month - 1, 1);
-    final int daysInPreviousMonth = DateTime(today.year, today.month, 0).day;
+    final DateTime oneMonthAgo = DateTime(today.year, today.month - 1, today.day);
+
     final List<DateTime> dates = List.generate(
-      daysInPreviousMonth + DateTime(today.year, today.month + 1, 0).day,
-      (index) {
-        return index < daysInPreviousMonth
-            ? firstDayOfPreviousMonth.add(Duration(days: index))
-            : firstDayOfCurrentMonth
-                .add(Duration(days: index - daysInPreviousMonth));
-      },
+      today.difference(oneMonthAgo).inDays + 1,
+      (index) => oneMonthAgo.add(Duration(days: index)),
     );
 
     int todayIndex = dates.indexWhere((date) =>
@@ -63,20 +54,13 @@ class _HorizontalCalendarState extends State<HorizontalCalendar> {
   @override
   Widget build(BuildContext context) {
     final DateTime today = DateTime.now();
-    final DateTime firstDayOfCurrentMonth =
-        DateTime(today.year, today.month, 1);
-    final DateTime firstDayOfPreviousMonth =
-        DateTime(today.year, today.month - 1, 1);
-    final int daysInPreviousMonth = DateTime(today.year, today.month, 0).day;
+    final DateTime oneMonthAgo = DateTime(today.year, today.month - 1, today.day);
+
     final List<DateTime> dates = List.generate(
-      daysInPreviousMonth + DateTime(today.year, today.month + 1, 0).day,
-      (index) {
-        return index < daysInPreviousMonth
-            ? firstDayOfPreviousMonth.add(Duration(days: index))
-            : firstDayOfCurrentMonth
-                .add(Duration(days: index - daysInPreviousMonth));
-      },
+      today.difference(oneMonthAgo).inDays + 1,
+      (index) => oneMonthAgo.add(Duration(days: index)),
     );
+
     return Center(
       child: SizedBox(
         height: 100,

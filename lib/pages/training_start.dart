@@ -3,15 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
 class TrainingStartPage extends StatefulWidget {
-  const TrainingStartPage({
-    super.key,
-  });
+  final String workoutId;
+  const TrainingStartPage({super.key, required this.workoutId});
 
   @override
   State<TrainingStartPage> createState() => _TrainingStartPageState();
 }
 
-class _TrainingStartPageState extends State<TrainingStartPage> {
+class _TrainingStartPageState extends State<TrainingStartPage>
+    with SingleTickerProviderStateMixin {
   List<DocumentSnapshot> exercisesSnapshot = [];
   int _currentIndex = 0;
   Timer? _timer;
@@ -19,17 +19,27 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
   int _currentDuration = 0;
   int _totalDuration = 0;
   bool _isPaused = false;
+  AnimationController? _animationController;
 
   @override
   void initState() {
     super.initState();
     _fetchExercises();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _animationController?.dispose();
+    super.dispose();
   }
 
   void _fetchExercises() async {
     QuerySnapshot exercisesQuerySnapshot = await FirebaseFirestore.instance
         .collection('Workouts')
-        .doc('yoga_for_beginners')
+        .doc(widget.workoutId)
         .collection('Exercises')
         .get();
 
@@ -48,12 +58,17 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
       _currentDuration = 0;
       _progress = 0;
 
+      _animationController?.duration = Duration(seconds: _totalDuration);
+      _animationController?.reset();
+
+      _timer?.cancel(); // Cancel the previous timer if exists
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         if (!_isPaused) {
           setState(() {
             if (_currentDuration < _totalDuration) {
               _currentDuration++;
               _progress = _currentDuration / _totalDuration;
+              _animationController?.forward(from: _progress);
             } else {
               _timer?.cancel();
               _nextExercise();
@@ -65,18 +80,20 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
   }
 
   void _nextExercise() {
+    _timer?.cancel(); // Cancel the current timer before proceeding
     if (_currentIndex < exercisesSnapshot.length - 1) {
       setState(() {
         _currentIndex++;
       });
       _startExercise();
     } else {
-      // Все упражнения выполнены
+      // All exercises completed
       print('Workout complete');
     }
   }
 
   void _previousExercise() {
+    _timer?.cancel(); // Cancel the current timer before proceeding
     if (_currentIndex > 0) {
       setState(() {
         _currentIndex--;
@@ -88,20 +105,18 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
   void _pauseResumeExercise() {
     setState(() {
       _isPaused = !_isPaused;
+      if (_isPaused) {
+        _animationController?.stop();
+      } else {
+        _animationController?.forward(from: _progress);
+      }
     });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (exercisesSnapshot.isEmpty) {
-      return const Scaffold(
-          body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     final currentExercise =
@@ -127,10 +142,16 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
                 SizedBox(
                   width: 80,
                   height: 80,
-                  child: CircularProgressIndicator(
-                    value: _progress,
-                    strokeWidth: 10.0,
-                    backgroundColor: const Color.fromARGB(255, 242, 236, 255),
+                  child: AnimatedBuilder(
+                    animation: _animationController!,
+                    builder: (context, child) {
+                      return CircularProgressIndicator(
+                        value: _animationController!.value,
+                        strokeWidth: 5.0,
+                        backgroundColor:
+                            const Color.fromARGB(255, 242, 236, 255),
+                      );
+                    },
                   ),
                 ),
                 Text("${_currentDuration}s / ${_totalDuration}s"),
