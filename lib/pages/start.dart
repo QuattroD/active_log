@@ -1,4 +1,6 @@
 import 'package:active_log/components/card.dart';
+import 'package:active_log/components/exercise_card.dart';
+import 'package:active_log/pages/training.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,9 @@ class _StartPageState extends State<StartPage> {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        await FirebaseFirestore.instance.collection(FirebaseAuth.instance.currentUser!.email.toString()).add({
+        await FirebaseFirestore.instance
+            .collection(FirebaseAuth.instance.currentUser!.email.toString())
+            .add({
           'calories': 0,
           'carbs': 0,
           'date': '$todayDate 00:00:00.000',
@@ -66,6 +70,7 @@ class _StartPageState extends State<StartPage> {
         child: Scaffold(
       body: Column(
         children: [
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
           SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               child: Row(children: [
@@ -178,26 +183,83 @@ class _StartPageState extends State<StartPage> {
               )
             ],
           ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 12)),
           SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
-              child: const Row(children: [
-                Text(
-                  'Популярные упражнения',
-                  style: TextStyle(fontSize: 20),
-                )
-              ])),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Популярные упражнения',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.popAndPushNamed(context, '/workout');
+                      },
+                      child: const Text(
+                        'Все >',
+                        style:
+                            TextStyle(fontSize: 16, color: Colors.deepPurple),
+                      ),
+                    )
+                  ])),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.93,
-            child: const SingleChildScrollView(
+            child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  //ExerciseCard(background: Colors.lightBlue, title: 'title'),
-                  //ExerciseCard(background: Colors.green, title: 'title2')
-                ],
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Workouts')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Ошибка: ${snapshot.error}'));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        'К сожалению по вашему запросу,\nничего не найдено :(',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    );
+                  }
+                  final workouts = snapshot.data!.docs.map((doc) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TrainingPage(workoutId: doc.id),
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.95,
+                        child: ExerciseCard(
+                        background: const Color.fromARGB(255, 196, 231, 255),
+                        title: doc['title'],
+                        imageURL: doc['image'],
+                        kcal: doc['kcal'],
+                        time: doc['time'],
+                      ),
+                      )
+                    );
+                  }).toList();
+
+                  return Row(
+                    children: workouts,
+                  );
+                },
               ),
             ),
           ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 12)),
           SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               child: const Row(children: [

@@ -19,7 +19,6 @@ class _DietPageState extends State<DietPage> {
     super.initState();
     DateTime now = DateTime.now();
     _selectedDate = DateTime(now.year, now.month, now.day);
-    print(_selectedDate);
   }
 
   void _handleDateSelected(DateTime date) {

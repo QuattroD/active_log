@@ -44,7 +44,7 @@ class _TrainingPageState extends State<TrainingPage> {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text('шаг ${doc['step']}'),
-                      trailing: Text(doc['time_or_repeats']),
+                      trailing: doc['repeats'] ? Text('x${doc['time_or_repeats']}') : Text('${doc['time_or_repeats']} сек'),
                     );
                   }).toList();
                   return StreamBuilder(

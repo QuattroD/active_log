@@ -19,6 +19,7 @@ class _TrainingStartPageState extends State<TrainingStartPage>
   int _currentDuration = 0;
   int _totalDuration = 0;
   bool _isPaused = false;
+  bool _isRepeats = false; // Добавлено для отслеживания типа упражнения
   AnimationController? _animationController;
 
   @override
@@ -54,28 +55,38 @@ class _TrainingStartPageState extends State<TrainingStartPage>
     if (exercisesSnapshot.isNotEmpty) {
       final currentExercise =
           exercisesSnapshot[_currentIndex].data() as Map<String, dynamic>;
-      _totalDuration = int.parse(currentExercise['time_or_repeats']);
-      _currentDuration = 0;
-      _progress = 0;
+      _isRepeats = currentExercise['repeats'] ?? false;
 
-      _animationController?.duration = Duration(seconds: _totalDuration);
-      _animationController?.reset();
+      if (_isRepeats) {
+        _totalDuration = 0; // При повторениях таймер не используется
+        _currentDuration = 0;
+        _progress = 0;
+        _animationController?.duration = const Duration(seconds: 0);
+        _animationController?.reset();
+      } else {
+        _totalDuration = int.parse(currentExercise['time_or_repeats']);
+        _currentDuration = 0;
+        _progress = 0;
 
-      _timer?.cancel(); // Cancel the previous timer if exists
-      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (!_isPaused) {
-          setState(() {
-            if (_currentDuration < _totalDuration) {
-              _currentDuration++;
-              _progress = _currentDuration / _totalDuration;
-              _animationController?.forward(from: _progress);
-            } else {
-              _timer?.cancel();
-              _nextExercise();
-            }
-          });
-        }
-      });
+        _animationController?.duration = Duration(seconds: _totalDuration);
+        _animationController?.reset();
+
+        _timer?.cancel(); // Cancel the previous timer if exists
+        _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          if (!_isPaused) {
+            setState(() {
+              if (_currentDuration < _totalDuration) {
+                _currentDuration++;
+                _progress = _currentDuration / _totalDuration;
+                _animationController?.forward(from: _progress);
+              } else {
+                _timer?.cancel();
+                _nextExercise();
+              }
+            });
+          }
+        });
+      }
     }
   }
 
@@ -136,27 +147,32 @@ class _TrainingStartPageState extends State<TrainingStartPage>
             SizedBox(
                 child: Image(image: NetworkImage(currentExercise['image']))),
             const SizedBox(height: 16),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  width: 80,
-                  height: 80,
-                  child: AnimatedBuilder(
-                    animation: _animationController!,
-                    builder: (context, child) {
-                      return CircularProgressIndicator(
-                        value: _animationController!.value,
-                        strokeWidth: 5.0,
-                        backgroundColor:
-                            const Color.fromARGB(255, 242, 236, 255),
-                      );
-                    },
+            _isRepeats
+                ? ElevatedButton(
+                    onPressed: _nextExercise,
+                    child: const Text('Закончить упражнение'),
+                  )
+                : Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        height: 80,
+                        child: AnimatedBuilder(
+                          animation: _animationController!,
+                          builder: (context, child) {
+                            return CircularProgressIndicator(
+                              value: _animationController!.value,
+                              strokeWidth: 5.0,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 242, 236, 255),
+                            );
+                          },
+                        ),
+                      ),
+                      Text("${_currentDuration}s / ${_totalDuration}s"),
+                    ],
                   ),
-                ),
-                Text("${_currentDuration}s / ${_totalDuration}s"),
-              ],
-            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -178,10 +194,11 @@ class _TrainingStartPageState extends State<TrainingStartPage>
                   ),
                 ),
                 const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: _pauseResumeExercise,
-                  child: Text(_isPaused ? 'Продолжить' : 'Пауза'),
-                ),
+                if (!_isRepeats)
+                  ElevatedButton(
+                    onPressed: _pauseResumeExercise,
+                    child: Text(_isPaused ? 'Продолжить' : 'Пауза'),
+                  ),
                 const SizedBox(width: 16),
                 Container(
                   decoration: BoxDecoration(
