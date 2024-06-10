@@ -35,7 +35,7 @@ class _AuthPageState extends State<AuthPage> {
                   width: 70,
                 ),
                 Text(
-                  'ActiveLog',
+                  'Трекер дня',
                   style: TextStyle(
                       color: Colors.deepPurple,
                       fontSize: 30,

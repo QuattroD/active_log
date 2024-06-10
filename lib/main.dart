@@ -16,10 +16,12 @@ import 'package:active_log/pages/auth.dart';
 import 'package:active_log/pages/reg.dart';
 import 'package:active_log/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(

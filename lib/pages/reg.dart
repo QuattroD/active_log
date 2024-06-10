@@ -51,7 +51,7 @@ class _RegPageState extends State<RegPage> {
                   width: 70,
                 ),
                 Text(
-                  'ActiveLog',
+                  'Трекер дня',
                   style: TextStyle(
                       color: Colors.deepPurple,
                       fontSize: 30,
