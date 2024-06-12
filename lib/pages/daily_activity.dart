@@ -69,29 +69,9 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                           height: 0.22,
                           icon: Icons.directions_run,
                           widget: Center(
-                              child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              SizedBox(
-                                width: 100,
-                                height: 100,
-                                child: CircularProgressIndicator(
-                                  backgroundColor: Colors.grey[300],
-                                  color:
-                                      const Color.fromARGB(255, 136, 104, 190),
-                                  value: 0.56,
-                                  strokeCap: StrokeCap.round,
-                                  strokeWidth: 9,
-                                ),
-                              ),
-                              const Text(
-                                '7,333\nшаги',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                            ],
-                          )),
-                          title: 'Ходьба',
+                            child: Text('43,7'),
+                          ),
+                          title: 'ИМТ',
                         ),
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 5)),
