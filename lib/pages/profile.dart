@@ -1,3 +1,4 @@
+import 'package:active_log/pages/auth.dart';
 import 'package:active_log/services/user_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -296,6 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
             GestureDetector(
               onTap: () async {
                 await UserPreferences.deleteUserUid();
+                firebaseService.logOut();
                 Navigator.popAndPushNamed(context, '/');
               },
               child: SizedBox(

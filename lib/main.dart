@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:active_log/pages/daily_activity.dart';
+import 'package:active_log/pages/health.dart';
 import 'package:active_log/pages/reset_password.dart';
 import 'package:active_log/pages/verification_email.dart';
 import 'package:active_log/pages/verification_phone.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         '/verification_email': (context) => const EmailVerificationPage(),
         '/verification_phone': (context) => const PhoneVerificationPage(),
         '/reset_password': (context) => const ResetPasswordPage(),
+        '/health': (context) => const HealthPage(),
         //'/training_start': (context) => const TrainingStartPage()
       },
       

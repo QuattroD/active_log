@@ -238,7 +238,9 @@ class _RegPageState extends State<RegPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    firebaseService.signInWithGoogle(context);
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -248,26 +250,10 @@ class _RegPageState extends State<RegPage> {
                     ),
                     child: Image.asset(
                       'images/google-logo.png',
-                      height: 40,
+                      height: 50,
                     ),
                   ),
                 ),
-                const SizedBox(width: 25),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white),
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.grey[200],
-                    ),
-                    child: Image.asset(
-                      'images/apple-logo.png',
-                      height: 40,
-                    ),
-                  ),
-                )
               ],
             ),
             Padding(

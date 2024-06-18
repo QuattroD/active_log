@@ -55,6 +55,7 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -62,12 +63,26 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                       children: [
                         const Padding(
                             padding: EdgeInsets.symmetric(vertical: 5)),
-                        InfoCard(
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.popAndPushNamed(context, '/health');
+                          },
+                          child: InfoCard(
+                            background: Colors.white,
+                            textColor: Colors.black,
+                            height: 0.12,
+                            icon: Icons.brightness_3,
+                            widget: Text('7.40 часов'),
+                            title: 'Сон',
+                            iconColor: Colors.orange,
+                          ),
+                        ),
+                        const InfoCard(
                           background: Colors.white,
-                          iconColor: const Color.fromARGB(255, 136, 104, 190),
+                          iconColor: Color.fromARGB(255, 136, 104, 190),
                           textColor: Colors.black,
                           height: 0.22,
-                          icon: Icons.directions_run,
+                          icon: Icons.monitor_weight,
                           widget: Center(
                             child: Text('43,7'),
                           ),
@@ -92,39 +107,29 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                                     ),
                                   ),
                                 ),
-                                const Text('3 часа')
+                                RichText(
+                                    text: TextSpan(
+                                        text: '3',
+                                        style: const TextStyle(
+                                            fontSize: 22,
+                                            color: Colors.cyan,
+                                            fontWeight: FontWeight.bold),
+                                        children: <TextSpan>[
+                                      TextSpan(
+                                          text: ' часа',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.grey[600],
+                                              fontWeight: FontWeight.normal))
+                                    ]))
                               ],
                             )),
-                        const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5)),
-                        const InfoCard(
-                          background: Colors.white,
-                          textColor: Colors.black,
-                          height: 0.12,
-                          icon: Icons.pedal_bike,
-                          widget: Text('35 минут'),
-                          title: 'Велоспорт',
-                          iconColor: Colors.orange,
-                        ),
                       ],
                     ),
                     const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10)),
                     Column(
                       children: [
-                        const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5)),
-                        const InfoCard(
-                          background: Colors.white,
-                          textColor: Colors.black,
-                          height: 0.12,
-                          icon: Icons.brightness_3,
-                          widget: Text('7.40 часов'),
-                          title: 'Сон',
-                          iconColor: Colors.orange,
-                        ),
-                        const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5)),
                         InfoCard(
                           background: Colors.white,
                           iconColor: Colors.blue,
@@ -146,12 +151,22 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                                   strokeWidth: 9,
                                 ),
                               ),
-                              const Text(
-                                textAlign: TextAlign.center,
-                                '100\nмл',
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                      text: '100',
+                                      style: const TextStyle(
+                                          fontSize: 22,
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.bold),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '\nмл',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey[600],
+                                                fontWeight: FontWeight.normal))
+                                      ]))
                             ],
                           )),
                           title: 'Вода',
@@ -163,7 +178,7 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                           iconColor: Colors.green,
                           textColor: Colors.black,
                           height: 0.22,
-                          icon: Icons.emoji_food_beverage,
+                          icon: Icons.restaurant_menu,
                           widget: Center(
                               child: Stack(
                             alignment: Alignment.center,
@@ -179,12 +194,22 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                                   strokeWidth: 9,
                                 ),
                               ),
-                              const Text(
-                                '245\nкалорий',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
+                              RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                      text: '245',
+                                      style: const TextStyle(
+                                          fontSize: 22,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: '\nкалорий',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.grey[600],
+                                                fontWeight: FontWeight.normal))
+                                      ]))
                             ],
                           )),
                           title: 'Калории',
