@@ -94,27 +94,22 @@ class _RegPageState extends State<RegPage> {
               width: MediaQuery.of(context).size.width * 0.90,
               child: TextField(
                 controller: login,
-                onChanged: _checkInput,
-                decoration: InputDecoration(
-                    hintText: 'Введите почту или номер телефона',
+                decoration: const InputDecoration(
+                    hintText: 'Введите почту',
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 2,
-                          color: _inputType == 'Invalid'
-                              ? Colors.red
-                              : Colors.grey,
+                          color: Colors.grey,
                         ),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
+                            BorderRadius.all(Radius.circular(20))),
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 2,
-                          color: _inputType == 'Invalid'
-                              ? Colors.red
-                              : Colors.grey,
+                          color:Colors.grey,
                         ),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(20)))),
+                            BorderRadius.all(Radius.circular(20)))),
               ),
             ),
             Padding(

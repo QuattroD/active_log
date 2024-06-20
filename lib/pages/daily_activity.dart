@@ -1,5 +1,6 @@
 import 'package:active_log/components/card.dart';
 import 'package:active_log/components/chart/chart_graph.dart';
+import 'package:active_log/pages/googlefit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,17 @@ class DailyActivityPage extends StatefulWidget {
 
   @override
   State<DailyActivityPage> createState() => _DailyActivityPageState();
+}
+
+enum AppState {
+  DATA_NOT_FETCHED,
+  FETCHING_DATA,
+  DATA_READY,
+  NO_DATA,
+  AUTHORIZED,
+  AUTH_NOT_GRANTED,
+  STEPS_READY,
+  HEALTH_CONNECT_STATUS,
 }
 
 class _DailyActivityPageState extends State<DailyActivityPage> {
@@ -20,6 +32,11 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
     50.99,
     90.10
   ];
+
+  void initState() {
+    
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +53,20 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                   icon: const Icon(Icons.arrow_back)),
               actions: [
                 IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.calendar_month))
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HealthApp(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.calendar_month))
               ],
             ),
             body: Column(
               children: [
+                const Padding(padding: EdgeInsetsDirectional.symmetric(vertical: 10)),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: Text(
@@ -61,22 +87,6 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                   children: [
                     Column(
                       children: [
-                        const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 5)),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.popAndPushNamed(context, '/health');
-                          },
-                          child: InfoCard(
-                            background: Colors.white,
-                            textColor: Colors.black,
-                            height: 0.12,
-                            icon: Icons.brightness_3,
-                            widget: Text('7.40 часов'),
-                            title: 'Сон',
-                            iconColor: Colors.orange,
-                          ),
-                        ),
                         const InfoCard(
                           background: Colors.white,
                           iconColor: Color.fromARGB(255, 136, 104, 190),
