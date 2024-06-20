@@ -180,10 +180,10 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                             padding: EdgeInsets.symmetric(vertical: 5)),
                         InfoCard(
                           background: Colors.white,
-                          iconColor: Colors.green,
+                          iconColor: Colors.red,
                           textColor: Colors.black,
                           height: 0.22,
-                          icon: Icons.emoji_food_beverage,
+                          icon: Icons.local_fire_department,
                           widget: Center(
                               child: Stack(
                             alignment: Alignment.center,
@@ -193,7 +193,7 @@ class _DailyActivityPageState extends State<DailyActivityPage> {
                                 height: 100,
                                 child: CircularProgressIndicator(
                                   backgroundColor: Colors.grey[300],
-                                  color: Colors.green,
+                                  color: Colors.red,
                                   value: 0.56,
                                   strokeCap: StrokeCap.round,
                                   strokeWidth: 9,

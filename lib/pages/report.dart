@@ -11,6 +11,18 @@ class ReportPage extends StatefulWidget {
   State<ReportPage> createState() => _ReportPageState();
 }
 
+String formatDuration(int seconds) {
+  int hours = seconds ~/ 3600;
+  int minutes = (seconds % 3600) ~/ 60;
+  int remainingSeconds = seconds % 60;
+
+  if (hours > 0) {
+    return '${hours}ч ${minutes}м';
+  } else {
+    return '${minutes}м ${remainingSeconds}с';
+  }
+}
+
 class _ReportPageState extends State<ReportPage> {
   DateTime? _selectedDate;
 
@@ -308,7 +320,7 @@ class _ReportPageState extends State<ReportPage> {
                                           child: Row(
                                             children: [
                                               Text(
-                                                '${snap[0]['workouts']} час',
+                                                formatDuration(snap[0]['workouts']),
                                                 style: const TextStyle(
                                                     fontSize: 25),
                                               )
