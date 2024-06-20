@@ -43,14 +43,18 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         borderRadius: BorderRadius.circular(30)),
                     child: TextButton(
                       onPressed: () async {
-                        FirebaseAuth.instance.currentUser!.reload();
-                        if (FirebaseAuth.instance.currentUser!.emailVerified ==
-                            true) {
-                          Navigator.pushNamed(context, '/welcome');
+                        await FirebaseAuth.instance.currentUser!.reload();
+                        await Future.delayed(const Duration(
+                            seconds:
+                                2)); // Add a delay to ensure the status is updated
+                        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                          Navigator.pushNamed(context, '/home');
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Пожалуйста, подтвердите ваш почтовый адрес.')));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text(
+                                'Пожалуйста, подтвердите ваш почтовый адрес.'),
+                          ));
                         }
                       },
                       child: const Text(

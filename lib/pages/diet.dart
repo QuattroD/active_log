@@ -34,6 +34,7 @@ class _DietPageState extends State<DietPage> {
     TextEditingController fatController = TextEditingController();
     TextEditingController carbsController = TextEditingController();
     TextEditingController fiberController = TextEditingController();
+    TextEditingController waterController = TextEditingController();
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color.fromARGB(255, 245, 245, 251),
@@ -468,231 +469,394 @@ class _DietPageState extends State<DietPage> {
             },
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.89,
-            height: MediaQuery.of(context).size.height * 0.07,
-            decoration: BoxDecoration(
-                color: Colors.deepPurple,
-                border: Border.all(width: 1, color: Colors.white),
-                borderRadius: BorderRadius.circular(10)),
-            child: TextButton(
-              onPressed: () {
-                Scaffold.of(context).showBottomSheet(
-                  (BuildContext context) {
-                    return Container(
-                      height: 350,
-                      color: Colors.grey[100],
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 350,
-                              child: TextField(
-                                keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                    hintText: 'Имя продукта',
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 2, color: Colors.grey),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10))),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 2, color: Colors.grey),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)))),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.43,
+                height: MediaQuery.of(context).size.height * 0.08,
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    border: Border.all(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(10)),
+                child: IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).showBottomSheet(
+                        (BuildContext context) {
+                          return Container(
+                            height: 350,
+                            color: Colors.grey[100],
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const SizedBox(
+                                    width: 350,
+                                    child: TextField(
+                                      keyboardType: TextInputType.name,
+                                      decoration: InputDecoration(
+                                          hintText: 'Имя продукта',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2, color: Colors.grey),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2, color: Colors.grey),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)))),
+                                    ),
+                                  ),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10)),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 163,
+                                        child: TextField(
+                                          controller: proteinController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                              hintText: 'Белки',
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)))),
+                                        ),
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10)),
+                                      SizedBox(
+                                        width: 163,
+                                        child: TextField(
+                                          controller: fatController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                              hintText: 'Жиры',
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)))),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10)),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 163,
+                                        child: TextField(
+                                          controller: carbsController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                              hintText: 'Углеводы',
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)))),
+                                        ),
+                                      ),
+                                      const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10)),
+                                      SizedBox(
+                                        width: 163,
+                                        child: TextField(
+                                          controller: fiberController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: const InputDecoration(
+                                              hintText: 'Клетчатка',
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10))),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10)))),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10)),
+                                  Container(
+                                    width: 342,
+                                    decoration: BoxDecoration(
+                                        color: Colors.deepPurple,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: TextButton(
+                                      onPressed: () async {
+                                        String email = FirebaseAuth
+                                            .instance.currentUser!.email
+                                            .toString();
+                                        String selectedDate =
+                                            _selectedDate.toString();
+
+                                        int protein =
+                                            int.parse(proteinController.text);
+                                        int fat = int.parse(fatController.text);
+                                        int carbs =
+                                            int.parse(carbsController.text);
+                                        int fiber =
+                                            int.parse(fiberController.text);
+
+                                        int totalCalories = (protein * 4) +
+                                            (fat * 9) +
+                                            (carbs * 4) +
+                                            (fiber * 2);
+                                        QuerySnapshot querySnapshot =
+                                            await FirebaseFirestore.instance
+                                                .collection(email)
+                                                .where('date',
+                                                    isEqualTo: selectedDate)
+                                                .get();
+
+                                        if (querySnapshot.docs.isNotEmpty) {
+                                          DocumentSnapshot doc =
+                                              querySnapshot.docs[0];
+                                          FirebaseFirestore.instance
+                                              .collection(email)
+                                              .doc(doc.id)
+                                              .update({
+                                                'protein': FieldValue.increment(
+                                                    protein),
+                                                'fat':
+                                                    FieldValue.increment(fat),
+                                                'carbs':
+                                                    FieldValue.increment(carbs),
+                                                'fiber':
+                                                    FieldValue.increment(fiber),
+                                                'calories':
+                                                    FieldValue.increment(
+                                                        totalCalories),
+                                              })
+                                              .then((_) => print(
+                                                  'Данные успешно обновлены'))
+                                              .catchError((error) => print(
+                                                  'Ошибка при обновлении данных: $error'));
+                                        } else {
+                                          FirebaseFirestore.instance
+                                              .collection(email)
+                                              .add({
+                                                'date': selectedDate,
+                                                'protein': protein,
+                                                'fat': fat,
+                                                'carbs': carbs,
+                                                'fiber': fiber,
+                                                'calories': totalCalories,
+                                              })
+                                              .then((_) => print(
+                                                  'Документ успешно создан'))
+                                              .catchError((error) => print(
+                                                  'Ошибка при создании документа: $error'));
+                                        }
+                                        proteinController.text = '';
+                                        fatController.text = '';
+                                        carbsController.text = '';
+                                        fiberController.text = '';
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'Добавить',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 163,
-                                  child: TextField(
-                                    controller: proteinController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: const InputDecoration(
-                                        hintText: 'Белки',
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)))),
-                                  ),
-                                ),
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10)),
-                                SizedBox(
-                                  width: 163,
-                                  child: TextField(
-                                    controller: fatController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: const InputDecoration(
-                                        hintText: 'Жиры',
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)))),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: 163,
-                                  child: TextField(
-                                    controller: carbsController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: const InputDecoration(
-                                        hintText: 'Углеводы',
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)))),
-                                  ),
-                                ),
-                                const Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10)),
-                                SizedBox(
-                                  width: 163,
-                                  child: TextField(
-                                    controller: fiberController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: const InputDecoration(
-                                        hintText: 'Клетчатка',
-                                        enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2, color: Colors.grey),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)))),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
-                            Container(
-                              width: 342,
-                              decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextButton(
-                                onPressed: () async {
-                                  String email = FirebaseAuth
-                                      .instance.currentUser!.email
-                                      .toString();
-                                  String selectedDate =
-                                      _selectedDate.toString();
-
-                                  int protein =
-                                      int.parse(proteinController.text);
-                                  int fat = int.parse(fatController.text);
-                                  int carbs = int.parse(carbsController.text);
-                                  int fiber = int.parse(fiberController.text);
-
-                                  int totalCalories = (protein * 4) +
-                                      (fat * 9) +
-                                      (carbs * 4) +
-                                      (fiber * 2);
-                                  QuerySnapshot querySnapshot =
-                                      await FirebaseFirestore.instance
-                                          .collection(email)
-                                          .where('date',
-                                              isEqualTo: selectedDate)
-                                          .get();
-
-                                  if (querySnapshot.docs.isNotEmpty) {
-                                    DocumentSnapshot doc =
-                                        querySnapshot.docs[0];
-                                    FirebaseFirestore.instance
-                                        .collection(email)
-                                        .doc(doc.id)
-                                        .update({
-                                          'protein':
-                                              FieldValue.increment(protein),
-                                          'fat': FieldValue.increment(fat),
-                                          'carbs': FieldValue.increment(carbs),
-                                          'fiber': FieldValue.increment(fiber),
-                                          'calories': FieldValue.increment(
-                                              totalCalories),
-                                        })
-                                        .then((_) =>
-                                            print('Данные успешно обновлены'))
-                                        .catchError((error) => print(
-                                            'Ошибка при обновлении данных: $error'));
-                                  } else {
-                                    FirebaseFirestore.instance
-                                        .collection(email)
-                                        .add({
-                                          'date': selectedDate,
-                                          'protein': protein,
-                                          'fat': fat,
-                                          'carbs': carbs,
-                                          'fiber': fiber,
-                                          'calories': totalCalories,
-                                        })
-                                        .then((_) =>
-                                            print('Документ успешно создан'))
-                                        .catchError((error) => print(
-                                            'Ошибка при создании документа: $error'));
-                                  }
-                                  proteinController.text = '';
-                                  fatController.text = '';
-                                  carbsController.text = '';
-                                  fiberController.text = '';
-                                  Navigator.pop(context);
-                                },
-                                child: const Text(
-                                  'Добавить',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                            ),
-                          ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Добавить',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                      ),
-                    );
-                  },
-                );
-              },
-              child: const Text(
-                '+Добавить питание',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                        Icon(
+                          Icons.restaurant_menu,
+                          color: Colors.white,
+                        )
+                      ],
+                    )),
               ),
-            ),
-          ),
+              const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.43,
+                height: MediaQuery.of(context).size.height * 0.08,
+                decoration: BoxDecoration(
+                    color: Colors.blue[700],
+                    border: Border.all(width: 1, color: Colors.white),
+                    borderRadius: BorderRadius.circular(10)),
+                child: IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).showBottomSheet(
+                        (BuildContext context) {
+                          return Container(
+                            height: 200,
+                            color: Colors.grey[100],
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: 350,
+                                    child: TextField(
+                                      keyboardType: TextInputType.number,
+                                      controller: waterController,
+                                      decoration: const InputDecoration(
+                                          hintText: 'Объём воды',
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2, color: Colors.grey),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2, color: Colors.grey),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)))),
+                                    ),
+                                  ),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10)),
+                                  Container(
+                                    width: 342,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue[700],
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: TextButton(
+                                      onPressed: () async {
+                                        String email = FirebaseAuth
+                                            .instance.currentUser!.email.toString();
+                                        String selectedDate = _selectedDate.toString();
+                                        int water =
+                                            int.parse(waterController.text);
+                                        QuerySnapshot querySnapshot =
+                                            await FirebaseFirestore.instance
+                                                .collection(email)
+                                                .where('date',
+                                                    isEqualTo: selectedDate)
+                                                .get();
+
+                                        if (querySnapshot.docs.isNotEmpty) {
+                                          DocumentSnapshot doc =
+                                              querySnapshot.docs[0];
+                                          FirebaseFirestore.instance
+                                              .collection(email)
+                                              .doc(doc.id)
+                                              .update({
+                                                'water': FieldValue.increment(water),
+                                              })
+                                              .then((_) => print(
+                                                  'Данные успешно обновлены'))
+                                              .catchError((error) => print(
+                                                  'Ошибка при обновлении данных: $error'));
+                                        } else {
+                                          FirebaseFirestore.instance
+                                              .collection(email)
+                                              .add({
+                                                'water': water,
+                                              })
+                                              .then((_) => print(
+                                                  'Документ успешно создан'))
+                                              .catchError((error) => print(
+                                                  'Ошибка при создании документа: $error'));
+                                        }
+                                        proteinController.text = '';
+                                        fatController.text = '';
+                                        carbsController.text = '';
+                                        fiberController.text = '';
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text(
+                                        'Добавить',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    icon: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Добавить',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        Icon(
+                          Icons.water_drop,
+                          color: Colors.white,
+                          size: 28,
+                        )
+                      ],
+                    )),
+              )
+            ],
+          )
         ],
       ),
     ));

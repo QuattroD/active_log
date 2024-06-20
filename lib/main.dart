@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:active_log/pages/daily_activity.dart';
 import 'package:active_log/pages/reset_password.dart';
 import 'package:active_log/pages/verification_email.dart';
-import 'package:active_log/pages/verification_phone.dart';
 import 'package:active_log/pages/welcome_pages/age.dart';
 import 'package:active_log/pages/welcome_pages/gender.dart';
 import 'package:active_log/pages/welcome_pages/goal.dart';
@@ -16,17 +15,20 @@ import 'package:active_log/pages/auth.dart';
 import 'package:active_log/pages/reg.dart';
 import 'package:active_log/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(
               apiKey: 'AIzaSyBtNwlLtDFXaE0OLyO00jau6cyNwLAmyHU',
               appId: '1:809706057161:android:f25a4dc0caa1d22b858c18',
               messagingSenderId: '809706057161',
-              projectId: 'active-log-9c62f'))
+              projectId: 'active-log-9c62f',
+              androidClientId: '809706057161-i4anpdpntq8gu9dqck8i8bejkk53qqp7.apps.googleusercontent.com'))
       : await Firebase.initializeApp();
       String? uid = await UserPreferences.getUserUid();
   runApp(MyApp(initialRoute: uid != null ? '/home' : '/',));
@@ -65,9 +67,7 @@ class MyApp extends StatelessWidget {
         '/tall': (context) => const TallPage(),
         '/goal': (context) => const GoalPage(),
         '/verification_email': (context) => const EmailVerificationPage(),
-        '/verification_phone': (context) => const PhoneVerificationPage(),
         '/reset_password': (context) => const ResetPasswordPage(),
-        //'/training_start': (context) => const TrainingStartPage()
       },
       
     );
